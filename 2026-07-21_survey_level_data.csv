@@ -1,0 +1,307 @@
+"","year","transect","round","date","og_date","observer1","observer2","start_time","end_time","temp_f","wind_speed","wind_direction","snow_cover","precipitation","direction_traveled","system_phenology_old","system_phenology_new","visibility","notes","ObjectID","GlobalID"
+"1",2016,"T1",1,"2016-05-11","5/11/2016","Devin Johnson",NA,"8:20","9:21",40,"3","E","0.12","none","N",NA,NA,"","Dense fog reducing visibility to about 100m between MM14-16. Low clouds, willows beginning to bud. David Anderson observed 4 additional WIPT. ",NA,NA
+"2",2016,"T1",2,"2016-06-01","6/1/2016","Michael Henderson",NA,"9:56","10:34",57,"2","U","0","none","S",NA,NA,"","1 squirrel, much thicker vegetation than rest of Teller",NA,NA
+"3",2016,"T2",1,"2016-05-11","5/11/2016","Devin Johnson",NA,"9:32","10:42",46,"7","E","0.1","none","N",NA,NA,"","Thick fog reducing visibility to 100m from MM 21-22. Less shrubs, more tundra from MM 23 onward. ",NA,NA
+"4",2016,"T2",2,"2016-06-01","6/1/2016","Michael Henderson",NA,"9:15","9:55",57,"5","U","0","none","S",NA,NA,"","2 Long-tailed Jaegers, sunny day",NA,NA
+"5",2016,"T3",1,"2016-05-11","5/11/2016","Devin Johnson",NA,"10:46","11:51",44,"6","E","0.3","light","N",NA,NA,"","Rockier tundra terrian. Light precipitation from MM 36-38. ",NA,NA
+"6",2016,"T3",2,"2016-05-31","5/31/2016","Michael Henderson",NA,"9:50","10:21",58,"5","SW","0","none","S",NA,NA,"","2 Long-tailed Jaegers, 1 unknown plover",NA,NA
+"7",2016,"T4",1,"2016-05-17","5/17/2016","Devin Johnson",NA,"10:30","11:42",56,"5","E","0.15","none","N",NA,NA,"","Scattered clouds. Mix of ROPT and WIPT habitat. One small area had 6 WIPT observed at once at varying distances. ",NA,NA
+"8",2016,"T4",2,"2016-05-31","5/31/2016","Michael Henderson",NA,"9:11","9:49",56,"0",NA,"0","none","S",NA,NA,"","4 Long-tailed Jaegers, one squirrel",NA,NA
+"9",2016,"T5",1,"2016-05-20","5/20/2016","Devin Johnson",NA,"9:02","9:40",44,"7","E","0.2","none","N",NA,NA,"","Mostly sunny. Willows are still without buds at this elevation. ",NA,NA
+"10",2016,"T5",2,"2016-05-31","5/31/2016","Michael Henderson",NA,"8:31","9:10",53,"0",NA,"0","none","S",NA,NA,"","WIPT much more white than on Kougarok (yesterday). Also mainly on or near road.",NA,NA
+"11",2016,"T6",1,"2016-05-20","5/20/2016","Michael Henderson",NA,"9:46","10:52",43,"2","U","0.05","none","N",NA,NA,"","3 Long-Tailed Jaegers, 1 American Golden Plover",NA,NA
+"12",2016,"T6",2,"2016-05-31","5/31/2016","Devin Johnson",NA,"7:28","8:04",53,"3","S","0.03","none","S",NA,NA,"","Jaegers are long-tailed. Clear skies, not much vegetation obscuring visibility (mostly open tundra).",NA,NA
+"13",2016,"C1",1,"2016-05-22","5/22/2016","Devin Johnson",NA,"8:28","9:09",38,"51","S","0.05","light","N",NA,NA,"","Cloudy skies and cold. Sun from MM 40 onwards. No ptarmigan or other prey species, leaf buds on willows. ",NA,NA
+"14",2016,"C1",2,"2016-06-02","6/2/2016","Michael Henderson",NA,"8:38","9:53",36,"30","N","0","none","S",NA,NA,"","1 LTJA",NA,NA
+"15",2016,"C2",1,"2016-05-22","5/22/2016","Devin Johnson",NA,"9:10","9:47",39,"10","S","0.3","none","N",NA,NA,"","Sunny at the start. Moderate rain from MM 51-53. Thick fog reducing visibility to 100m from MM 53-54. Decreasing willows/alders throughout with gain in elevation. Ended transect near the top of pass.",NA,NA
+"16",2016,"C2",2,"2016-06-02","2-Jun-16","Michael Henderson",NA,"9:18","9:53",44,"12","U","0","none","S",NA,NA,"","2 LTJA 1 GOPL",NA,NA
+"17",2016,"K1",1,"2016-05-12","5/12/2016","Michael Henderson",NA,"8:12","9:21",39,"1","E","0.08","light","N",NA,NA,"","River is still high. Very few catkins on some willows. Driver saw no additional prey species. ",NA,NA
+"18",2016,"K1",2,"2016-05-29","5/29/2016","Devin Johnson",NA,"9:22","10:00",67,"3","S","0.02","none","S",NA,NA,"","Dense leafy vegetation throughout, sunny and hot",NA,NA
+"19",2016,"K2",1,"2016-05-12","5/12/2016","Michael Henderson",NA,"9:24","10:33",43,"0",NA,"0.7","light","N",NA,NA,"","Sub-adult GOEA at about MM 31.5. Snow increased greatly in second half of survey. Changed from shrub to tundra as well. Several Norther Harriers spotted, male and female. Driver may have seen one WIPT perched on hosue that observer missed. ",NA,NA
+"20",2016,"K2",2,"2016-05-29","5/29/2016","Devin Johnson",NA,"8:39","9:21",66,"2","E","0.2","none","S",NA,NA,"","Dense leafy vegetation from MM 28-23",NA,NA
+"21",2016,"K3",1,"2016-05-16","5/16/2016","Michael Henderson",NA,"6:58","8:34",26,"0",NA,"0.3","none","N",NA,NA,"","1 Jaeger.",NA,NA
+"22",2016,"K3",2,"2016-05-30","5/30/2016","Devin Johnson",NA,"9:50","10:29",65,"3","E","0.05","none","S",NA,NA,"","Sunny skies, thick vegetation obscuring visibility throughout survey, somewhat clearing from MM 34-33",NA,NA
+"23",2016,"K4",1,"2016-05-16","5/16/2016","Michael Henderson",NA,"8:35","10:07",40,"0",NA,"0.1","none","N",NA,NA,"","1 AGSQ, 3 plover, missed at least 1 squirrel. Consisted of a lot of open tundra at high elevation.",NA,NA
+"24",2016,"K4",2,"2016-05-30","5/30/2016","Devin Johnson",NA,"9:07","9:48",65,"3","S","0.05","none","S",NA,NA,"","Thick vegetation for most of survey area, especially from MM 53-51 and MM 48-41. Jaeger was long-tailed.",NA,NA
+"25",2016,"K5",1,"2016-05-15","5/15/2016","Devin Johnson",NA,"8:15","9:14",32,"5","E","0.1","none","N",NA,NA,"","Clear skies, glare to the east slightly limiting visibility of observer. Willows budding.",NA,NA
+"26",2016,"K5",2,"2016-05-30","5/30/2016","Michael Henderson",NA,"8:22","9:05",61,"2","S","0.05","none","S",NA,NA,"","Vegetation is thick-lots of new green. Lowers detectability greatly",NA,NA
+"27",2016,"K6",1,"2016-05-15","5/15/2016","Devin Johnson",NA,"9:20","10:26",31,"5","E","0.3","none","N",NA,NA,"","Clear skies, fewer shrubs and more rocky tundra. 2 moose observed near road.",NA,NA
+"28",2016,"K6",2,"2016-05-28","5/28/2016","Michael Henderson",NA,"10:29","11:12",57,"2","S","0.02","none","S",NA,NA,"","WIPT molting into summer plumage and behavior seems more cryptic.",NA,NA
+"29",2016,"K7",1,"2016-05-15","5/15/2016","Devin Johnson",NA,"10:27","11:36",38,"5","E","0.05","none","N",NA,NA,"","Clear skies, decreasing shrubs. 1 moose, pintails on road. ",NA,NA
+"30",2016,"K7",2,"2016-05-28","5/28/2016","Michael Henderson",NA,"9:46","10:28",54,"2","S","0.02","none","S",NA,NA,"","3 Long-tailed Jaegers. Sunny skies and warm",NA,NA
+"31",2016,"K8",1,"2016-05-15","5/15/2016","Devin Johnson",NA,"11:42","12:00",39,"7","E","0.08","none","N",NA,NA,"","Clear skies, many harriers observed. Tundra greening. Road ended at MM 85.",NA,NA
+"32",2016,"K8",2,"2016-05-28","5/28/2016","Michael Henderson",NA,"9:30","9:45",54,"2","S","0.02","none","S",NA,NA,"","No prey species observed.",NA,NA
+"33",2017,"T1",1,"2017-05-02","5/2/2017","Devin Johnson","Adam Eichenwald","7:01","8:47",33,"3","N","0.15","none","N",NA,NA,"","Clear, willows beginning to bud",NA,NA
+"34",2017,"T1",2,"2017-05-11","5/11/2017","Michael Henderson","Adam Eichenwald","8:42","9:39",36,"3","W","0.2","none","S",NA,NA,"","Recorded by Devin Johnson. Musk ox at mile marker 10. Clear skies. Pinnacle point nest vacated.",NA,NA
+"35",2017,"T2",1,"2017-05-02","5/2/2017","Devin Johnson","Adam Eichenwald","8:50","9:44",32,"0",NA,"0.45","none","N",NA,NA,"","Clear",NA,NA
+"36",2017,"T2",2,"2017-05-11","5/11/2017","Michael Henderson","Devin Johnson","7:21","8:40",38,"2","U","0.3","none","S",NA,NA,"","Recorded by Adam Eichenwald",NA,NA
+"37",2017,"T3",1,"2017-05-03","5/3/2017","Devin Johnson","Adam Eichenwald","6:58","7:53",26,"3","N","0.75","none","N",NA,NA,"","Clear, MM 29-33 almost 100% snow cover",NA,NA
+"38",2017,"T3",2,"2017-05-08","5/8/2017","Adam Eichenwald","Michael Henderson","8:22","9:38",39,"3","N","0.15","none","S",NA,NA,"","Overcast",NA,NA
+"39",2017,"T4",1,"2017-05-03","5/3/2017","Devin Johnson","Adam Eichenwald","8:00","9:01",31,"0",NA,"0.5","none","N",NA,NA,"","Clear, starting MM 44-48 wind picked up, overcast, light snow. Flock of 25 willow ptarmigan, mixed gender, foraging",NA,NA
+"40",2017,"T4",2,"2017-05-08","5/8/2017","Adam Eichenwald","Devin Johnson","6:51","8:20",26,"5","E","0.5","none","S",NA,NA,"","No green yet. Flocks still in approximately the same place.",NA,NA
+"41",2017,"T5",1,"2017-05-03","5/3/2017","Devin Johnson","Adam Eichenwald","9:03","9:59",21,"10","W","0.4","none","N",NA,NA,"","Overcast, 2 flocks. Lots of snow.",NA,NA
+"42",2017,"T5",2,"2017-05-07","5/7/2017","Adam Eichenwald","Michael Henderson","8:54","9:56",34,"5","N","0.3","none","S",NA,NA,"","Overcast, 1 large flock",NA,NA
+"43",2017,"T6",1,"2017-05-07","5/7/2017","Devin Johnson","Michael Henderson","7:40","8:38",34,"3","S","0.2","none","N",NA,NA,"","Partly cloudy, overcast. 1 Snowshoe hare.",NA,NA
+"44",2017,"T6",2,"2017-05-13","5/13/2017","Michael Henderson","Devin Johnson","8:54","9:56",38,"7","N","0.2","none","S",NA,NA,"","2 Short-eared Owls, 1 Long-tailed Jaeger. No green on shrubs.",NA,NA
+"45",2017,"C1",1,"2017-05-05","5/5/2017","Devin Johnson","Adam Eichenwald","7:17","8:30",29,"5","S","0.2","none","S",NA,NA,"","Overcast, 4 brant and 3 swans",NA,NA
+"46",2017,"C1",2,"2017-05-10","5/10/2017","Adam Eichenwald","Devin Johnson","8:19","9:09",26,"0",NA,"0.25","none","N",NA,NA,"","Most willows have large catkins. No green yet. Catkins particularly thick near rivers.",NA,NA
+"47",2017,"C2",1,"2017-05-05","5/5/2017","Devin Johnson","Adam Eichenwald","8:30","9:32",27,"3","W","0.3","none","S",NA,NA,"","Overcast, 90-100% snow cover from MM 51-54. No ptarmigan",NA,NA
+"48",2017,"C2",2,"2017-05-10","5/10/2017","Adam Eichenwald","Michael Henderson","7:24","8:18",35,"5","E","0.7","none","N",NA,NA,"","Clear skies",NA,NA
+"49",2017,"K1",1,"2017-05-01","5/1/2017","Michael Henderson","Devin Johnson","6:47","8:00",38,"4","E","0.45","none","N",NA,NA,"","One hare, unknown whether Arctic or Snowshoe",NA,NA
+"50",2017,"K1",2,"2017-05-17","5/17/2017","Adam Eichenwald","Devin Johnson","8:50","9:43",39,"2","S","0.1","none","S",NA,NA,"","Recorded by Michael Henderson. Large amount of catkins on willows, no leaves yet. 2 long-tailed jaegers",NA,NA
+"51",2017,"K2",1,"2017-05-01","5/1/2017","Michael Henderson","Devin Johnson","8:00","9:01",32,"0",NA,"0.6","none","N",NA,NA,"","",NA,NA
+"52",2017,"K2",2,"2017-05-17","5/17/2017","Adam Eichenwald","Michael Henderson","7:56","8:48",36,"4","S","0.6","none","S",NA,NA,"","Recorded by Devin Johnson",NA,NA
+"53",2017,"K3",1,"2017-05-01","5/1/2017","Michael Henderson","Devin Johnson","9:05","9:55",38,"3","W","0.95","none","N",NA,NA,"","Clear, snowy. Raven",NA,NA
+"54",2017,"K3",2,"2017-05-17","5/17/2017","Devin Johnson","Michael Henderson","6:50","7:54",34,"4","S","0.3","none","S",NA,NA,"","",NA,NA
+"55",2017,"K4",1,"2017-05-04","5/4/2017","Devin Johnson","Adam Eichenwald","6:42","7:32",33,"7","W","0.7","none","N",NA,NA,"","15/85%",NA,NA
+"56",2017,"K4",2,"2017-05-14","5/14/2017","Michael Henderson","Devin Johnson","8:55","9:34",35,"0",NA,"0.1","none","S",NA,NA,"","",NA,NA
+"57",2017,"K5",1,"2017-05-04","5/4/2017","Devin Johnson","Adam Eichenwald","7:35","8:13",21,"5","W","0.75","light","N",NA,NA,"","1/99%",NA,NA
+"58",2017,"K5",2,"2017-05-14","5/14/2017","Michael Henderson","Devin Johnson","8:15","8:54",31,"0",NA,"0.05","none","S",NA,NA,"","",NA,NA
+"59",2017,"K6",1,"2017-05-12","5/12/2017","Michael Henderson","Devin Johnson","6:19","7:02",30,"2","W","0.1","none","N",NA,NA,"","No green yet. Recorded by Adam Eichenwald",NA,NA
+"60",2017,"K6",2,"2017-05-14","5/14/2017","Devin Johnson","Michael Henderson","7:39","8:15",32,"2","E","0.1","none","S",NA,NA,"","One arctic hare",NA,NA
+"61",2017,"K7",1,"2017-05-12","5/12/2017","Michael Henderson","Devin Johnson","7:03","7:59",33,"0",NA,"0.1","none","N",NA,NA,"","Recorded by Adam Eichenwald",NA,NA
+"62",2017,"K7",2,"2017-05-14","5/14/2017","Devin Johnson","Michael Henderson","6:46","7:37",29,"2","E","0.1","none","S",NA,NA,"","Partly cloudy",NA,NA
+"63",2017,"K8",1,"2017-05-12","5/12/2017","Michael Henderson","Devin Johnson","8:03","8:15",35,"4","S","0.1","none","N",NA,NA,"","Recorded by Adam Eichenwald. Road ends at MM 85.",NA,NA
+"64",2017,"K8",2,"2017-05-14","5/14/2017","Devin Johnson","Michael Henderson","6:31","6:43",28,"5","E","0.05","none","S",NA,NA,"","",NA,NA
+"65",2018,"T1",1,"2018-05-22","22-May-2018","Michael Henderson","Devin Johnson","8:30","9:59",43,"3.5","W","0.65","none","N",NA,NA,"","2 WISN, 2 GOPL, lots of AMRO. No green on willows, but small catkins. Male WIPT fully red-brown head/neck. A little color on body. Good visibility.",NA,NA
+"66",2018,"T1",2,"2018-06-12","12-Jun-2018","Devin Johnson","Michael Henderson","8:46","9:50",51,"4","N","0","none","S",NA,NA,"","3 LTJA, 1 RLHA (mm 16) Leaves on shrubs making observation difficult.",NA,NA
+"67",2018,"T2",1,"2018-05-24","24-May-2018","Michael Henderson","Devin Johnson","8:15","10:00",37,"4","NE","0.75","none","N",NA,NA,"","5 WISN, 3 LTJA, 2 GOPL, 2 BTGO, lots of AMRO. No green on shrubs, catkins present. Ptarmigans shwoing some body color but <10%. Visibility mostly good, some snow berms.",NA,NA
+"68",2018,"T2",2,"2018-06-08","8-Jun-2018","Michael Henderson","Devin Johnson","9:04","10:32",70,"2","E","0.1","none","S",NA,NA,"","6 WISN, 2 LTJA, 1 SEOW, Shrubs 50% green. Some taller shrubs obstructed view, but overall vis was good.",NA,NA
+"69",2018,"T3",1,"2018-05-26","26-May-2018","Michael Henderson","Devin Johnson","8:15","10:11",36,"3","N","0.8","none","N",NA,NA,"","13 GOPL, 5 AGSQ, 9 LTJA, lots of AMRO. No green on shrubs, small catkins. Ptarmigan fully red head and neck but little body color. More migratory birds than previous surveys. Adult GYRF observed on ground and flying at MM 30: light gray bird w/lighter barring on lower belly, grey back. Adult RLHA observed at MM 33.5, perched on ground. Observed LTJA kill a WIPT, then get it stolen by same RLHA at ~MM 34. ",NA,NA
+"70",2018,"T3",2,"2018-06-08","8-Jun-2018","Michael Henderson","Devin Johnson","7:47","9:04",59,"1","S","0.15","none","S",NA,NA,""," 8 LTJA, 3 GOPL, 1 NOHA, 3 AGSQ, 30-40% green mostly tundra, great visibility, females cryptic males obvious still. ",NA,NA
+"71",2018,"T4",1,"2018-05-30","30-May-2018","Devin Johnson","Michael Henderson","8:10","9:41",39,"9","SE","0.25","light","N",NA,NA,"","Light precip MM 38-40, medium/heavy precip MM 40-42, no precip MM 42-48. Good visibility, no green on shrubs yet",NA,NA
+"72",2018,"T4",2,"2018-06-05","5-Jun-2018","Michael Henderson","Devin Johnson","9:40","10:48",56,"6","W","0.05","none","S",NA,NA,"","2 LTJA, 2 AGSQ, Catkins, early green up, female WIPT fully brown, males mostly white. Behaviorally more cryptic than previous surveys.",NA,NA
+"73",2018,"T5",1,"2018-05-30","30-May-2018","Devin Johnson","Michael Henderson","9:46","11:04",51,"1","N","0.1","none","N",NA,NA,"","1 LTJA, 1 Merlin, 1 RLHA, 1 AGSQ, 1 WISN. Good visibility, no green on wilows but some catkins. Overcast, no precipitation. RLHA at MM 56.5",NA,NA
+"74",2018,"T5",2,"2018-06-05","5-Jun-2018","Michael Henderson","Devin Johnson","8:37","9:35",54,"4","W","0.1","none","S",NA,NA,"","1 AGSQ, mostly tundra, catkins + early green up, females all brown males mostly white still.",NA,NA
+"75",2018,"T6",1,"2018-06-05","5-Jun-2018","Devin Johnson","Michael Henderson","6:52","7:40",54,"1","N","0","none","N",NA,NA,"","Sunny + wam, little green on willows. Mostly tundra, good visibility, male WIPT still displaying, 2 LTJA, 3 GOPL, lots of LALO + a couple of AMRO",NA,NA
+"76",2018,"T6",2,"2018-06-05","5-Jun-2018","Michael Henderson","Devin Johnson","7:45","8:35",57,"1","W","0.1","none","S",NA,NA,"","1 GOPL, 1 WISN, 3 LTJA, catkins, early green on shrubs. Mostly tundra.",NA,NA
+"77",2018,"C1",1,"2018-06-09","9-Jun-2018","Michael Henderson","Devin Johnson","8:11","9:03",49,"5","E","0.05","none","N",NA,NA,"","1 WISN, 60% green-up large shrubs block much of view.",NA,NA
+"78",2018,"C1",2,"2018-06-11","11-Jun-2018","Devin Johnson","Michael Henderson","10:00","11:03",47,"11","N","0","none","S",NA,NA,"","Skunked. Windy. Leafy willows obscuring view for a large portion of the transect.",NA,NA
+"79",2018,"C2",1,"2018-06-09","9-Jun-2018","Michael Henderson","Devin Johnson","9:05","10:04",50,"8","NE","0.25","none","N",NA,NA,"","No observed prey, visibility low before the pass, but good for a second, 30% green up complete, still quite a bit of snow.",NA,NA
+"80",2018,"C2",2,"2018-06-11","11-Jun-2018","Devin Johnson","Michael Henderson","8:30","9:57",36,"15","E","0","none","S",NA,NA,"","10+ AMRO Cold + windy, leaves on willows, good visibility on tundra.",NA,NA
+"81",2018,"K1",1,"2018-05-20","20-May-2018","Devin Johnson","Michael Henderson","8:10","9:23",42,"8","NW","0.75","light","N",NA,NA,"","6 moose, 1 merlin. Mostly snowcovered. No buds on willows. Light rain from MM 15-23",NA,NA
+"82",2018,"K1",2,"2018-06-10","10-Jun-2018","Michael Henderson","Devin Johnson","9:37","10:20",56,"4","W","0.02","none","S",NA,NA,"","No other species seen. Tall shrubs obsructing view. Flooding, lots of water. 70% of green up",NA,NA
+"83",2018,"K2",1,"2018-05-20","20-May-2018","Devin Johnson","Michael Henderson","9:25","10:41",43,"4","N","0.95","light","N",NA,NA,"","10+ AMRO, lots of passerines. MM 30-33: intermittent snow berms >10ft high blocking fiew periodically. Most shrubs covered in snow.",NA,NA
+"84",2018,"K2",2,"2018-06-10","10-Jun-2018","Michael Henderson","Devin Johnson","8:32","9:36",49,"5","N","0.1","none","S",NA,NA,"","1 WISN, 3 AGSQ, High shrubs obstruct view 60-70% green up.",NA,NA
+"85",2018,"K3",1,"2018-05-29","29-May-2018","Devin Johnson","Michael Henderson","7:22","8:33",43,"4","E","0.9","light","N",NA,NA,"","5 WISN, lots of AMRO (30+), 1 moose. Salmon Lake still frozen. Snow berms intermittently obstructing view throughout. Light precipitation from 7:48-8:10. ",NA,NA
+"86",2018,"K3",2,"2018-06-10","10-Jun-2018","Michael Henderson","Devin Johnson","7:27","8:30",46,"3","N","0.15","none","S",NA,NA,"","1 WISN, 1 LTJA, High shrubs onstruct view, 60% green up.",NA,NA
+"87",2018,"K4",1,"2018-05-29","29-May-2018","Devin Johnson","Michael Henderson","8:36","10:00",44,"1","N","0.6","none","N",NA,NA,"","1 NOHA, 7 GOPL, 1 WHIM, 1 ARHA, 20+ AMRO. Snow berms partially obstructing view from MM 50-53. No green on willows, some catkins and new reddish branch growth. ",NA,NA
+"88",2018,"K4",2,"2018-06-07","7-Jun-2018","Michael Henderson","Devin Johnson","9:46","10:42",58,"6","E","0.15","none","S",NA,NA,"","2, GOPL, 1 NOHA, 1 LTJA, 50-60% green-up. High + dense shrubs obstruct view.",NA,NA
+"89",2018,"K5",1,"2018-06-06","6-Jun-2018","Devin Johnson","Michael Henderson","6:45","7:40",39,"6","W","0.02","none","N",NA,NA,"","3 SSHA, 3 LTJA, 1 NOHA. Lots of willows and trees with leaves, making visibility difficult Lots of water in rivers and on roadsides.",NA,NA
+"90",2018,"K5",2,"2018-06-07","7-Jun-2018","Michael Henderson","Devin Johnson","8:41","9:43",53,"2","E","0.02","light","S",NA,NA,"","10 SSHA 2 NOHA. Tall and thick shrubs obstructing view for much of survey. 50-60% of green-up. 2 Lynx @MM61",NA,NA
+"91",2018,"K6",1,"2018-06-06","6-Jun-2018","Devin Johnson","Michael Henderson","7:38","8:31",38,"4","NE","0.05","none","N",NA,NA,"","Good visibility, some green on shrubs, fog to 300m mm71-73.",NA,NA
+"92",2018,"K6",2,"2018-06-07","7-Jun-2018","Michael Henderson","Devin Johnson","7:51","8:40",52,"3","E","0.02","light","S",NA,NA,"","No additional species, thick shrubs, 60-70% of green-up complete, visibility low in parts. Thick shrubs 71-69.",NA,NA
+"93",2018,"K7",1,"2018-06-06","6-Jun-2018","Devin Johnson","Michael Henderson","8:30","9:34",47,"1","E","0","none","N",NA,NA,"","1 WISN, Light rain 78-79, 82-83. Good visibility on open tundra. Tundra fire (lighting?) @mm 52.5.",NA,NA
+"94",2018,"K7",2,"2018-06-06","6-Jun-2018","Michael Henderson","Devin Johnson","10:08","11:03",38,"4","NW","0.04","none","S",NA,NA,"","1 PAJA, 50 +% of green up complete.",NA,NA
+"95",2018,"K8",1,"2018-06-06","6-Jun-2018","Michael Henderson","Devin Johnson","9:27","9:44",43,"5","N","0","moderate","N",NA,NA,"","Rainy. Green on shrubs, no birds seen of any kind.",NA,NA
+"96",2018,"K8",2,"2018-06-06","6-Jun-2018","Devin Johnson","Michael Henderson","9:52","10:06",40,"5","NW","0.02","light","S",NA,NA,"","50% complete green up. No observations of prey.",NA,NA
+"97",2019,"T1",1,"2019-05-12","5/12/2019","Michael Henderson","Devin Johnson","7:00","8:12",34,"2","S","0.9","light","N",NA,NA,"","3 WISN. Few buds on shrubs. Phenology 0",NA,NA
+"98",2019,"T1",2,"2019-05-30","5/30/2019","Michael Henderson","Devin Johnson","9:42","11:00",48,"3","S","0.3","none","S",NA,NA,"","6 WISN, 1 GOPL, 3 LTJA, 4 AMRO. Phenology 2",NA,NA
+"99",2019,"T2",1,"2019-05-17","5/17/2019","Devin Johnson","Michael Henderson","8:11","9:45",46,"1","NW","0.7","none","N",NA,NA,"","54 AMRO, 3 LTJA. Willows have some catkins",NA,NA
+"100",2019,"T2",2,"2019-05-30","5/30/2019","Michael Henderson","Devin Johnson","8:12","9:40",45,"2","NW","0.4","none","S",NA,NA,"","15 WISN, 6 WHIM, 2 GOPL, 10 AMRO",NA,NA
+"101",2019,"T3",1,"2019-05-21","5/21/2019","Devin Johnson","Michael Henderson","9:05","10:36",42,"0",NA,"0.8","none","N",NA,NA,"","29 SHORE, 4LTJA, 2 AGSQ. Lots of snow",NA,NA
+"102",2019,"T3",2,"2019-05-24","5/24/2019","Michael Henderson","Devin Johnson","8:31","9:32",40,"2","N","0.15","none","S",NA,NA,"","4 GOPL, 1 WISN, 4 LTJA, some buds and new growth.  Dense fog made second half difficult",NA,NA
+"103",2019,"T4",1,"2019-05-23","5/23/2019","Devin Johnson","Michael Henderson","6:33","",39,"0",NA,"0.2","none","N",NA,NA,"","8 SHORE, 1 SEOW, 1 AMRO. Catkins on willows.",NA,NA
+"104",2019,"T4",2,"2019-05-24","5/24/2019","Michael Henderson","Devin Johnson","7:20","8:32",43,"3","N","0.15","none","S",NA,NA,"","4 GOPL, 1 LTJA, 1 AGSQ",NA,NA
+"105",2019,"T5",1,"2019-05-23","5/23/2019","Devin Johnson","Michael Henderson","8:05","8:45",35,"7","N","0.2","none","N",NA,NA,"","5 LTJA",NA,NA
+"106",2019,"T5",2,"2019-05-24","5/24/2019","Michael Henderson","Devin Johnson","6:21","7:19",33,"2","NE","0.1","none","S",NA,NA,"","1 SHORE. Some buds on willows, 2 AMRO",NA,NA
+"107",2019,"T6",1,"2019-05-23","5/23/2019","Devin Johnson","Michael Henderson","8:54","9:35",37,"1","N","0.25","none","N",NA,NA,"","1 LTJA, 1 NOHA, 2 AMRO. Thick fog MM 62-63 to 50-100m.",NA,NA
+"108",2019,"T6",2,"2019-05-24","5/24/2019","Michael Henderson","Devin Johnson","5:33","6:20",33,"6","NE","0.25","none","S",NA,NA,"","buds on willows",NA,NA
+"109",2019,"C1",1,"2019-05-19","5/19/2019","Devin Johnson","Michael Henderson","9:04","10:14",38,"6","N","0.3","none","S",NA,NA,"","16 AMRO, lots of waterfowl. Some buds on willows.",NA,NA
+"110",2019,"C1",2,"2019-06-04","6/4/2019","Michael Henderson","Devin Johnson","8:25","9:07",42,"8","N","0.05","none","N",NA,NA,"","2 LTJA. Leaves on willows",NA,NA
+"111",2019,"C2",1,"2019-06-04","6/4/2019","Devin Johnson","Michael Henderson","6:45","7:15",46,"5","N","0.3","none","S",NA,NA,"","Leaves on willows. Some large snow berms. 1 WISN",NA,NA
+"112",2019,"C2",2,"2019-06-04","6/4/2019","Michael Henderson","Devin Johnson","7:48","8:25",42,"19","N","0.3","none","N",NA,NA,"","1 WISN. Some tall snow berms",NA,NA
+"113",2019,"K1",1,"2019-05-11","5/11/2019","Devin Johnson","Michael Henderson","6:15","7:22",36,"9","N","0.9","none","N",NA,NA,"","Snowy, no buds on willows yet. 2 SHORE",NA,NA
+"114",2019,"K1",2,"2019-06-01","6/1/2019","Michael Henderson","Devin Johnson","7:58","8:51",42,"2","N","0.2","moderate","S",NA,NA,"","9 WISN. Small leaves on willows",NA,NA
+"115",2019,"K2",1,"2019-05-11","5/11/2019","Devin Johnson","Michael Henderson","7:22","8:24",40,"3","NE","0.9","none","N",NA,NA,"","Lots of snow. High snow berms obstructing view for most of transect",NA,NA
+"116",2019,"K2",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","9:50","10:29",45,"0",NA,"0.8","none","S",NA,NA,"","1 WISN, 2 AGSQ. Some green on willows",NA,NA
+"117",2019,"K3",1,"2019-05-22","5/22/2019","Michael Henderson","Devin Johnson","7:30","8:41",39,"0",NA,"0.9","none","N",NA,NA,"","6 SHORE, 1 LTJA. Large snow berms. 15 AMRO",NA,NA
+"118",2019,"K3",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","8:47","9:48",45,"0",NA,"0.35","none","S",NA,NA,"","1 GOPL, 1 WISN, some green on shrubs",NA,NA
+"119",2019,"K4",1,"2019-05-22","5/22/2019","Michael Henderson","Devin Johnson","8:42","9:32",37,"0",NA,"0.75","none","N",NA,NA,"","5 SHORE. Red new growth on willows but no leaves. 14 AMRO",NA,NA
+"120",2019,"K4",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","7:53","8:46",52,"2","S","0.15","light","S",NA,NA,"","3 WISN, 1 WHIM, 3 GOPL, 1 SSHA. Shrubs greener, buds",NA,NA
+"121",2019,"K5",1,"2019-05-27","5/27/2019","Devin Johnson","Michael Henderson","8:11","9:00",45,"5","SW","0.05","none","N",NA,NA,"","4 WISN, 4 SSHA, 4 AMRO, 2 GCTH",NA,NA
+"122",2019,"K5",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","6:16","7:07",40,"2","S","0.04","none","S",NA,NA,"","1 GOPL, 1 WHIM, 2 PAJA. Some greenness on shrubs, 3 AMRO",NA,NA
+"123",2019,"K6",1,"2019-05-27","5/27/2019","Devin Johnson","Michael Henderson","9:03","10:03",46,"3","N","0.1","none","N",NA,NA,"","3 AMRO. Foggy mm 71-72 to 200m, otherwise visibility good",NA,NA
+"124",2019,"K6",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","6:16","7:07",40,"2","S","0.1","none","S",NA,NA,"","2 WHIM. Some greenness on shrubs (2)",NA,NA
+"125",2019,"K7",1,"2019-05-27","5/27/2019","Devin Johnson","Michael Henderson","9:47","10:42",46,"3","N","0.05","none","N",NA,NA,"","1 LTJA, 1 RLHA, 1 AMRO, some green on shrubs",NA,NA
+"126",2019,"K7",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","5:21","6:15",40,"0",NA,"0.04","none","S",NA,NA,"","2 LTJA, 1 SEOW. Green on shrubs",NA,NA
+"127",2019,"K8",1,"2019-05-27","5/27/2019","Devin Johnson","Michael Henderson","10:45","11:00",48,"3","N","0","none","N",NA,NA,"","No prey observed. Green shrubs",NA,NA
+"128",2019,"K8",2,"2019-05-29","5/29/2019","Michael Henderson","Devin Johnson","5:04","5:20",38,"0",NA,"0","none","S",NA,NA,"","No prey observed. Green shrubs",NA,NA
+"129",2021,"T1",1,"2021-05-08","5/8/2021","Michael Henderson","Hayden Hutcherson","7:30","8:20",35,"3","N","0.4","none","N",NA,NA,"","mm 8 start, AMRO 3",NA,NA
+"130",2021,"T2",1,"2021-05-10","5/10/2021","Michael Henderson","Hayden Hutcherson","7:54","9:20",41,"1.7","N","0.4","none","N",NA,NA,"","AMRO 3",NA,NA
+"131",2021,"T3",1,"2021-05-10","5/10/2021","Michael Henderson","Hayden Hutcherson","9:24","10:38",41,"4.2","NE","0.7","none","N",NA,NA,"","mm28",NA,NA
+"132",2021,"T4",1,"2021-05-17","5/17/2021","Michael Henderson","Hayden Hutcherson","8:33","9:48",29,"5","N","0.2","none","N",NA,NA,"","AMRO 3",NA,NA
+"133",2021,"T5",1,"2021-05-17","5/17/2021","Michael Henderson","Hayden Hutcherson","9:48","10:47",29,"4","N","0.3","light","N",NA,NA,"","AMRO 7",NA,NA
+"134",2021,"K1",1,"2021-05-07","5/7/2021","Hayden Hutcherson","Michael Henderson","7:04","8:09",39,"8","N","0.6","none","N",NA,NA,"","AMRO 1",NA,NA
+"135",2021,"K2",1,"2021-05-07","5/7/2021","Hayden Hutcherson","Michael Henderson","8:09","9:10",36,"3.7","N","0.9","none","N",NA,NA,"","",NA,NA
+"136",2021,"K3",1,"2021-05-15","5/15/2021","Hayden Hutcherson","Michael Henderson","7:30","8:38",45,"0",NA,"0.9","none","N",NA,NA,"","Large snow berms both sides of road; AMRO 3",NA,NA
+"137",2021,"K4",1,"2021-05-15","5/15/2021","Hayden Hutcherson","Michael Henderson","8:39","9:43",41,"1.4","N","0.7","none","N",NA,NA,"","AMRO 6",NA,NA
+"138",2021,"C1",1,"2021-05-12","5/12/2021","Hayden Hutcherson","Michael Henderson","7:54","8:52",39,"6","N","0.3","none","N",NA,NA,"","AMRO 5",NA,NA
+"139",2021,"T4",2,"2021-05-19","5/19/2021","Hayden Hutcherson","Michael Henderson","7:27","8:40",35,"2","SW","0.3","none","S",NA,NA,"","Fog, limited visibility. AMRO 7, NSHR 1, SURF 2",NA,NA
+"140",2021,"T3",2,"2021-05-19","5/19/2021","Hayden Hutcherson","Michael Henderson","8:42","9:37",32,"2.7","SW","0.3","none","S",NA,NA,"","Verry foggy; AMRO 1",NA,NA
+"141",2021,"T2",2,"2021-05-19","5/19/2021","Hayden Hutcherson","Michael Henderson","9:38","10:46",44,"5","W","0.3","none","S",NA,NA,"","AMRO 9",NA,NA
+"142",2021,"T1",2,"2021-05-19","5/19/2021","Hayden Hutcherson","Michael Henderson","10:47","11:30",63,"0",NA,"0.5","none","S",NA,NA,"","AMRO 14",NA,NA
+"143",2021,"T5",2,"2021-05-25","5/25/2021","Hayden Hutcherson","Michael Henderson","10:16","11:17",47,"4","N","0.3","none","S",NA,NA,"","AMRO 10, RLHA 2",NA,NA
+"144",2021,"T6",2,"2021-05-25","5/25/2021","Hayden Hutcherson","Michael Henderson","9:29","10:15",47,"4.3","SE","0.1","none","S",NA,NA,"","",NA,NA
+"145",2021,"T6",1,"2021-05-25","5/25/2021","Michael Henderson","Hayden Hutcherson","8:34","9:26",47,"3.21","N","0.15","none","N",NA,NA,"","AMRO 3",NA,NA
+"146",2021,"K1",2,"2021-05-24","5/24/2021","Michael Henderson","Hayden Hutcherson","10:54","11:32",45,"2.2","N","0.3","none","S",NA,NA,"","AMRO 3, Tall alders",NA,NA
+"147",2021,"K2",2,"2021-05-24","5/24/2021","Michael Henderson","Hayden Hutcherson","9:59","10:53",38,"1.5","N","0.8","none","S",NA,NA,"","Snow berms; 10:15, RLHA perched; Stopped to look at Monte Cristo nest",NA,NA
+"148",2021,"K3",2,"2021-05-24","5/24/2021","Michael Henderson","Hayden Hutcherson","8:55","9:53",38,"1","N","0.5","none","S",NA,NA,"","AMRO 5; Tall berms and shrubs",NA,NA
+"149",2021,"K4",2,"2021-05-24","5/24/2021","Michael Henderson","Hayden Hutcherson","7:51","8:54",41,"0",NA,"0.4","none","S",NA,NA,"","AMRO 13; tall alders and willows and snow berms in places",NA,NA
+"150",2021,"K5",2,"2021-06-02","6/2/2021","Michael Henderson","Hayden Hutcherson","10:45","11:31",41,"4.21","N","0.05","none","S",NA,NA,"","Tall alders at end of survey",NA,NA
+"151",2021,"K6",2,"2021-06-02","6/2/2021","Michael Henderson","Hayden Hutcherson","9:55","10:41",32,"10.2","NE","0.05","none","S",NA,NA,"","2 beavers!",NA,NA
+"152",2021,"K7",2,"2021-06-02","6/2/2021","Michael Henderson","Hayden Hutcherson","9:09","9:55",32,"2.5","NE","0.02","light","S",NA,NA,"","",NA,NA
+"153",2021,"K7",1,"2021-06-02","6/2/2021","Hayden Hutcherson","Michael Henderson","8:10","9:02",38,"5","W","0.05","none","N",NA,NA,"","AMRO 1",NA,NA
+"154",2021,"K6",1,"2021-06-02","6/2/2021","Hayden Hutcherson","Michael Henderson","7:24","8:09",31,"8","NW","0.05","none","N",NA,NA,"","",NA,NA
+"155",2021,"K5",1,"2021-06-02","6/2/2021","Hayden Hutcherson","Michael Henderson","6:32","7:23",31,"14","NE","0.15","none","N",NA,NA,"","AMRO1",NA,NA
+"156",2021,"C1",2,"2021-05-31","5/31/2021","Michael Henderson","Hayden Hutcherson","10:38","11:22",50,"1","N","0.05","none","S",NA,NA,"","AMRO 6",NA,NA
+"157",2021,"C2",2,"2021-05-31","5/31/2021","Michael Henderson","Hayden Hutcherson","9:37","10:37",51,"5","N","0.3","none","S",NA,NA,"","AMRO 6",NA,NA
+"158",2021,"C2",1,"2021-05-31","5/31/2021","Hayden Hutcherson","Michael Henderson","7:58","8:41",46,"4","N","0.1","none","N",NA,NA,"","AMRO 10; large snow berms in sections",NA,NA
+"159",2022,"K1",1,"2022-05-09","9-May-2022","Michaela Gustafson","Michael Henderson","6:15","7:10",30,"7","N","0.2","none","N",1,0,"great","ground mostly all covered in snow but shrubs mostly uncovered, no green; GPS points taken on Mike's InReach",NA,NA
+"160",2022,"K2",1,"2022-05-09","9-May-2022","Michaela Gustafson","Michael Henderson","7:12","8:08",28,"5","N","0.2","none","N",1,0,"great","GPS points taken on Mike's InReach",NA,NA
+"161",2022,"K3",1,"2022-05-09","9-May-2022","Michaela Gustafson","Michael Henderson","8:16","9:02",26,"6","N","0.9","none","N",1,0,"great","Tall snow berms; GPS points taken on Mike's InReach",NA,NA
+"162",2022,"T1",1,"2022-05-10","10-May-2022","Michaela Gustafson","Michael Henderson","7:20","8:16",26,"4","NE","0.15","none","N",1,0,"fair","Patchy fog; 1 AMRO; RLHA near mm14/Penny Rock perched on road sign; GPS points on Mike's InReach",NA,NA
+"163",2022,"T2",1,"2022-05-10","10-May-2022","Michaela Gustafson","Michael Henderson","8:18","9:28",30,"0",NA,"0.4","none","N",1,0,"fair","patchy fog; GPS points on Mike's InReach",NA,NA
+"164",2022,"C1",1,"2022-05-17","17-May-2022","Michaela Gustafson","Michael Henderson","8:22","9:21",30,"12","N","0.05","none","N",1,0,"great","6 AMRO; buds/catkins on willows but no green; clear and sunny; GPS points on Mike's InReach; Northern Wheatear around MM38",NA,NA
+"165",2022,"C2",1,"2022-05-17","17-May-2022","Michaela Gustafson","Michael Henderson","9:24","10:12",33,"3","N","0.1","none","N",1,0,"great","2 RLHA on rock on S side of road just before EFB (W side); 3 AMRO; no other observations",NA,NA
+"166",2022,"T3",1,"2022-05-18","18-May-2022","Michaela Gustafson","Michael Henderson","6:25","7:50",32,"2","N","0.5","none","N",1,0,"great","GPS points taken on Mike's InReach; ",NA,NA
+"167",2022,"T4",1,"2022-05-19","19-May-2022","Michaela Gustafson","Michael Henderson","6:52","7:58",36,"5","N","0.3","none","N",1,0,"fair","2 AMRO; light fog in low elevations slightly affecting visibility in those areas",NA,NA
+"168",2022,"T5",1,"2022-05-19","19-May-2022","Michaela Gustafson","Michael Henderson","8:02","9:22",36,"2","S","0.3","none","N",1,0,"great","3 AMRO; RLHA hanging out by Bluestone Bridge (nesting site on W side of river)",NA,NA
+"169",2022,"T6",1,"2022-05-19","19-May-2022","Michaela Gustafson","Michael Henderson","9:30","10:20",50,"4","S","0.3","none","N",1,0,"fair","fog second half of transect",NA,NA
+"170",2022,"T6",2,"2022-05-20","20-May-2022","Michael Henderson","Michaela Gustafson","6:15","7:13",46,"7","S","0.4","none","S",1,0,"great","1 AMRO",NA,NA
+"171",2022,"T5",2,"2022-05-20","20-May-2022","Michael Henderson","Michaela Gustafson","7:13","8:18",53,"0",NA,"0.6","none","S",1,0,"great","4 AMRO",NA,NA
+"172",2022,"T4",2,"2022-05-20","20-May-2022","Michael Henderson","Michaela Gustafson","8:19","9:21",50,"8","N","0.2","none","S",1,0,"great","3 AMRO",NA,NA
+"173",2022,"T3",2,"2022-05-20","20-May-2022","Michael Henderson","Michaela Gustafson","9:25","10:47",57,"8","E","0.2","none","S",1,0,"great","",NA,NA
+"174",2022,"K4",1,"2022-05-21","21-May-2022","Michaela Gustafson","Michael Henderson","7:23","8:53",52,"1","N","0.4","none","N",1,0,"fair/poor","visibility fair/poor for long stretches of transect due to tall shrubs lining roads and obscuring view; 10 AMRO; subadult GOEA around mile 48;  second GOEA on rocks west of road closer to mile 49",NA,NA
+"175",2022,"K5",1,"2022-05-21","21-May-2022","Michaela Gustafson","Michael Henderson","8:56","9:59",58,"1","N","0.05","none","N",2,1,"great","new growth, willow buds",NA,NA
+"176",2022,"T2",2,"2022-05-24","24-May-2022","Michael Henderson","Michaela Gustafson","7:15","8:48",45,"2","N","0.3","none","S",2,1,"great","great visibility",NA,NA
+"177",2022,"T1",2,"2022-05-24","24-May-2022","Michael Henderson","Michaela Gustafson","8:55","9:45",58,"0",NA,"0.15","none","S",2,1,"great","",NA,NA
+"178",2022,"C2",2,"2022-05-25","25-May-2022","Michael Henderson","Michaela Gustafson","7:45","8:45",47,"7","N","0.4","none","S",2,1,"great","2 RLHA at MM52; inc gyr on EF bridge",NA,NA
+"179",2022,"C1",2,"2022-05-25","25-May-2022","Michael Henderson","Michaela Gustafson","8:45","9:36",49,"1","S","0.1","none","S",2,1,"great","",NA,NA
+"180",2022,"K6",1,"2022-05-27","27-May-2022","Michaela Gustafson","Michael Henderson","7:25","8:14",38,"5","S","0","light","N",2,1,"fair/poor","second half of survey low visibility due to fog",NA,NA
+"181",2022,"K7",1,"2022-05-27","27-May-2022","Michaela Gustafson","Michael Henderson","8:17","9:13",41,"3","E","0.05","light","N",2,1,"fair","visibility fair",NA,NA
+"182",2022,"K7",2,"2022-05-28","28-May-2022","Michael Henderson","Michaela Gustafson","5:20","6:14",36,"4","S","0.1","none","S",2,1,"good","good visibility (not sure the difference between good and great??)",NA,NA
+"183",2022,"K6",2,"2022-05-28","28-May-2022","Michael Henderson","Michaela Gustafson","6:15","7:01",40,"4","SW","0.1","light","S",2,1,"fair","visibility fair, foggy, became poor and thick fog with 300m vis",NA,NA
+"184",2022,"K5",2,"2022-05-28","28-May-2022","Michael Henderson","Michaela Gustafson","7:05","7:58",37,"3","N","0.1","light","S",2,1,"fair","visibility of 400m",NA,NA
+"185",2022,"K4",2,"2022-05-28","28-May-2022","Michael Henderson","Michaela Gustafson","7:58","9:12",36,"3","N","0.15","light","S",2,1,"fair","visibility fair",NA,NA
+"186",2022,"K3",2,"2022-05-28","28-May-2022","Michael Henderson","Michaela Gustafson","9:15","10:14",44,"1","E","0.2","none","S",2,1,"great","subadult GOEA at mm34",NA,NA
+"187",2022,"K2",2,"2022-05-29","29-May-2022","Michael Henderson","Michaela Gustafson","6:36","7:47",35,"2","E","0.4","none","S",2,1,"great","phenology is a 1 which is an old 2",NA,NA
+"188",2022,"K1",2,"2022-05-29","29-May-2022","Michael Henderson","Michaela Gustafson","7:50","9:04",42,"0",NA,"0.1","none","S",2,1,"great","",NA,NA
+"189",2023,"C1",1,"2023-05-25","25-May-23","Morgan Calahan","Michael Henderson","839","930",47,"2","N","0.3","light","N",1,0,"100","",NA,NA
+"190",2023,"C1",2,"2023-05-25","25-May-23","Morgan Calahan","Michael Henderson","11:05","11:56",41,"3","N","0.6","light","S",1,0,"100","",NA,NA
+"191",2023,"K1",1,"2023-05-18","18-May-23","Morgan Calahan","Michael Henderson","7:15","8:57",35,"0",NA,"0.4","none","N",1,0,"100","",NA,NA
+"192",2023,"K1",2,"2023-05-21","21-May-23","Morgan Calahan","Michael Henderson","10:20","11:28",54,"0",NA,"0.8","none","S",1,0,"100","",NA,NA
+"193",2023,"K2",1,"2023-05-18","18-May-23","Morgan Calahan","Michael Henderson","8:57","10:32",41,"3","N","0.7","none","N",1,0,"100","",NA,NA
+"194",2023,"K2",2,"2023-05-21","21-May-23","Morgan Calahan","Michael Henderson","9:00","10:19",46,"2","S","0.95","none","S",1,0,"100","",NA,NA
+"195",2023,"K3",1,"2023-05-21","21-May-23","Morgan Calahan","Michael Henderson","6:58","8:33",43,"1","S","0.95","none","N",1,0,"100","Transect started 21 May, finished 28 May due to access limitations. Tall snow drifts on roadside",NA,NA
+"196",2023,"K3",1,"2023-05-28","28-May-23","Morgan Calahan","Michael Henderson","5:57","6:10",51,"0",NA,"0.5","none","N",1,0,"100","Transect finished 28 May",NA,NA
+"197",2023,"K3",2,"2023-05-28","28-May-23","Morgan Calahan","Michael Henderson","11:36","12:57",66,"0",NA,"0.5","none","S",1,0,"100","",NA,NA
+"198",2023,"K4",1,"2023-05-28","28-May-23","Morgan Calahan","Michael Henderson","6:15","7:40",57,"0",NA,"0.5","none","N",1,0,"100","",NA,NA
+"199",2023,"K4",2,"2023-05-28","28-May-23","Morgan Calahan","Michael Henderson","10:15","11:34",50,"7","N","0.3","none","S",1,0,"100","",NA,NA
+"200",2023,"K5",1,"2023-05-28","28-May-23","Morgan Calahan","Michael Henderson","7:44","8:52",43,"5","S","0.2","none","N",1,0,"100","",NA,NA
+"201",2023,"K5",2,"2023-05-28","28-May-23","Morgan Calahan","Michael Henderson","8:53","10:14",51,"5","S","0.05","none","S",1,0,"100","",NA,NA
+"202",2023,"T1",1,"2023-05-19","19-May-23","Morgan Calahan","Michael Henderson","7:00","8:19",44,"1","W","0.4","none","N",1,0,"100","",NA,NA
+"203",2023,"T1",2,"2023-05-22","22-May-23","Morgan Calahan","Michael Henderson","10:58","12:01",54,"0",NA,"0.6","none","S",1,0,"100","tall snow birms",NA,NA
+"204",2023,"T2",1,"2023-05-19","19-May-23","Morgan Calahan","Michael Henderson","8:20","11:17",54,"0",NA,"U","none","N",1,0,"100","",NA,NA
+"205",2023,"T2",2,"2023-05-22","22-May-23","Morgan Calahan","Michael Henderson","9:06","10:58",44,"1","S","0.7","none","S",1,0,"100","",NA,NA
+"206",2023,"T3",1,"2023-05-22","22-May-23","Morgan Calahan","Michael Henderson","6:55","8:51",48,"2","N","0.8","none","N",1,0,"100","transect survey started 5/22 and finished 5/24 due to poor road conditions/impassable",NA,NA
+"207",2023,"T3",1,"2023-05-24","24-May-23","Morgan Calahan","Michael Henderson","9:14","10:14",53,"0",NA,"0.75","light","N",1,0,"100","transect survey started 5/22 and finished 5/24 due to poor road conditions/impassable",NA,NA
+"208",2023,"T3",2,"2023-05-24","24-May-23","Morgan Calahan","Michael Henderson","11:16","12:55",56,"3","S","0.6","none","S",1,0,"100","",NA,NA
+"209",2023,"T4",1,"2023-05-24","24-May-23","Morgan Calahan","Michael Henderson","10:15","11:03",58,"1","N","0.5","none","N",1,0,"100","transect survey started on 5/24 and finished on 5/26 due to road conditions; impassable",NA,NA
+"210",2023,"T4",1,"2023-05-26","26-May-23","Morgan Calahan","Michael Henderson","7:58","8:40",52,"14","N","0.2","light","N",1,0,"100","",NA,NA
+"211",2023,"T4",2,"2023-05-27","27-May-23","Morgan Calahan","Michael Henderson","10:11","11:28",48,"3","N","0.15","none","S",1,0,"100","",NA,NA
+"212",2023,"T5",1,"2023-05-26","26-May-23","Morgan Calahan","Michael Henderson","8:42","10:00",43,"7","N","0.2","light","N",1,0,"100","",NA,NA
+"213",2023,"T5",2,"2023-05-27","27-May-23","Morgan Calahan","Michael Henderson","8:53","10:10",48,"1","N","0.3","none","S",1,0,"100","",NA,NA
+"214",2023,"T6",1,"2023-05-26","26-May-23","Morgan Calahan","Michael Henderson","10:02","10:56",50,"6","N","0.3","none","N",1,0,"fog","",NA,NA
+"215",2023,"T6",2,"2023-05-26","26-May-23","Morgan Calahan","Michael Henderson","11:04","11:47",53,"3","N","0.2","none","S",1,0,"fog","heavy fog between mm 61-64",NA,NA
+"216",2024,"K1",1,"2024-05-14",NA,"Kara_Beer","Michael_Henderson","6:06","7:42",28.2,"1.2","SW","0.8","none","N",NA,0,"good","",NA,NA
+"217",2024,"K2",1,"2024-05-14",NA,"Stephanie_Galla","Kara_Beer","7:46","9:18",30,"5","S","0.9","none","N",NA,0,"good","",NA,NA
+"218",2024,"T1",1,"2024-05-16",NA,"Stephanie_Galla","Kara_Beer","6:55","7:46",31,"2.8","W","0.5","heavy","N",NA,0,"good","",NA,NA
+"219",2024,"K1",2,"2024-05-17",NA,"Stephanie_Galla","Kara_Beer","8:58","10:10",27,"1.8","NE","0.9","none","S",NA,0,"good","",NA,NA
+"220",2024,"K2",2,"2024-05-19",NA,"Stephanie_Galla","Kara_Beer","10:05","11:46",45,"2.1","NE","1","none","S",NA,0,"good","",NA,NA
+"221",2024,"T2",2,"2024-05-20",NA,"Stephanie_Galla","Kara_Beer","7:36","10:35",39,"2.5","N","0.7","light","S",NA,0,"good","",NA,NA
+"222",2024,"T1",2,"2024-05-20",NA,"Kara_Beer","Stephanie_Galla","10:35","11:43",38,"3.7","S","0.6","none","S",NA,0,"good","",NA,NA
+"223",2024,"T1",1,"2024-05-21",NA,"Stephanie_Galla","Kara_Beer","8:56","10:21",41,"3.9","NE","0.5","light","N",NA,0,"good","",NA,NA
+"224",2024,"T2",1,"2024-05-22",NA,"Stephanie_Galla","Kara_Beer","5:52","8:18",39,"0.6","N","0.4","none","N",NA,0,"good","",NA,NA
+"225",2024,"K3",2,"2024-05-23",NA,"Stephanie_Galla","Kara_Beer","7:39","9:28",43,"0.6","NW","0.9","none","S",NA,0,"good","Car temp reported at 36 at the start",NA,NA
+"226",2024,"K3",1,"2024-05-24",NA,"Stephanie_Galla","Kara_Beer","7:48","9:25",34,"2.5","E","0.9","none","N",NA,0,"good","",NA,NA
+"227",2024,"T3",2,"2024-05-25",NA,"Stephanie_Galla","Kara_Beer","8:49","10:27",46,"18","N","0.3","none","S",NA,0,"good","Survey read 9.5 miles on odometer. Wind became minimal throughout survey, short sections of higher wind ",NA,NA
+"228",2024,"T3",1,"2024-05-26",NA,"Stephanie_Galla","Kara_Beer","7:15","9:01",34.6,"12","W","0.4","none","N",NA,0,"good","",NA,NA
+"229",2024,"T4",2,"2024-05-26",NA,"Stephanie_Galla","Kara_Beer","9:31","10:58",32,"10","NE","0.2","none","S",NA,0,"good","",NA,NA
+"230",2024,"C1",1,"2024-05-27",NA,"Stephanie_Galla","Kara_Beer","6:47","7:53",40,"0.5","S","0.1","none","N",NA,0,"good","Kestrel said 40 but far more accurately said 28",NA,NA
+"231",2024,"C1",2,"2024-05-27",NA,"Stephanie_Galla","Kara_Beer","8:40","9:58",33,"3.3","S","0.5","none","S",NA,0,"good","",NA,NA
+"232",2024,"T4",1,"2024-05-28",NA,"Stephanie_Galla","Kara_Beer","7:29","8:52",29.6,"3.8","SE","0.1","none","N",NA,0,"good","",NA,NA
+"233",2024,"K4",1,"2024-05-29",NA,"Stephanie_Galla","Kara_Beer","7:57","9:25",40.9,"3.8","NE","0.9","none","N",NA,0,"good","",NA,NA
+"234",2024,"K4",2,"2024-05-29",NA,"Kara_Beer","Stephanie_Galla","9:50","11:11",51,"2.8","W","0.7","none","S",NA,0,"good","",NA,NA
+"235",2024,"T5",1,"2024-05-30",NA,"Stephanie_Galla","Kara_Beer","5:35","7:04",47,"7.2","N","0.3","none","N",NA,0,"good","",NA,NA
+"236",2024,"T6",1,"2024-05-30",NA,"Kara_Beer","Stephanie_Galla","7:04","8:05",45,"2.2","E","0.3","none","N",NA,0,"good","",NA,NA
+"237",2024,"T6",2,"2024-05-30",NA,"Kara_Beer","Stephanie_Galla","9:26","10:16",65,"1.7","NE","0.15","none","S",NA,0,"good","",NA,NA
+"238",2024,"T5",2,"2024-05-30",NA,"Stephanie_Galla","Kara_Beer","10:27","11:34",52,"5.9","N","0.2","none","S",NA,0,"good","",NA,NA
+"239",2024,"K5",1,"2024-06-04",NA,"Kara_Beer","Dakota_Walz","7:52","8:48",30,"6.9","W","0.3","none","N",NA,0,"good","",NA,NA
+"240",2024,"K6",1,"2024-06-04",NA,"Kara_Beer","Dakota_Walz","8:49","9:38",37,"1.2","N","0","none","N",NA,0,"good","",NA,NA
+"241",2024,"K7",1,"2024-06-04",NA,"Kara_Beer","Dakota_Walz","9:40","10:50",31,"2.6","N","0.1","none","N",NA,0,"good","",NA,NA
+"242",2024,"K7",2,"2024-06-05",NA,"Kara_Beer","Dakota_Walz","7:33","8:38",35.2,"8.2","N","0.1","none","S",NA,0,"good","",NA,NA
+"243",2024,"K6",2,"2024-06-05",NA,"Kara_Beer","Dakota_Walz","8:38","9:31",42,"1.7","E","0.1","none","S",NA,0,"good","",NA,NA
+"244",2024,"K5",2,"2024-06-05",NA,"Kara_Beer","Dakota_Walz","9:31","10:27",50,"1.7","W","0.1","none","S",NA,0,"good","",NA,NA
+"245",2024,"C2",1,"2024-06-12",NA,"Kara_Beer","Dakota_Walz","8:39","9:40",50.9,"2.4","S","0.1","none","N",NA,1,"good","",NA,NA
+"246",2024,"C2",2,"2024-06-12",NA,"Kara_Beer","Dakota_Walz","9:58","10:56",47,"1.5","S","0.3","none","S",NA,1,"fair","",NA,NA
+"247",2025,"K1",1,"2025-05-13",NA,"Michael_Henderson","Kara_Beer","07:06","08:42",34,"0","N","0.1","none","N",NA,0,"good","",2,"bf13947e-1d55-42ee-bf00-79f631ee0034"
+"248",2025,"K2",1,"2025-05-13",NA,"Michael_Henderson","Kara_Beer","08:42","10:02",34,"4","E","0.15","none","N",NA,0,"good","",3,"070e0874-e2a6-443d-83a9-ca0f51ab4701"
+"249",2025,"K3",1,"2025-05-13",NA,"Michael_Henderson","Kara_Beer","10:05","11:24",34,"1.8","N","1","none","N",NA,0,"good","",4,"5f7602fd-5ff8-43a6-b888-24365134f7c3"
+"250",2025,"T1",1,"2025-05-14",NA,"Kara_Beer","Michael_Henderson","06:30","07:49",41,"3","N","0.1","none","N",NA,0,"good","",5,"e8afc9b1-2c3a-4920-913a-39338fd7d69a"
+"251",2025,"T2",1,"2025-05-14",NA,"Kara_Beer","Michael_Henderson","07:49","10:03",46,"2","N","0.1","none","N",NA,0,"good","",6,"5defc321-7839-4384-9e71-c7cd4ab0ccc6"
+"252",2025,"T3",1,"2025-05-14",NA,"Kara_Beer","Michael_Henderson","10:04","11:56",40,"10","NE","0.1","none","N",NA,1,"good","",7,"a99bc150-9352-4f7a-a169-5a90160c4972"
+"253",2025,"T4",1,"2025-05-15",NA,"Michael_Henderson","Kara_Beer","07:19","09:00",41,"12.5","NE","0.1","none","N",NA,0,"good","",8,"ab00329b-0999-4319-ac63-599efc43d5eb"
+"254",2025,"T3",2,"2025-05-15",NA,"Michael_Henderson","Kara_Beer","09:44","11:30",53,"0.7","W","0.15","none","S",NA,0,"good","",9,"e7a421e2-802e-4dfa-8449-10fc5f4743c2"
+"255",2025,"C1",1,"2025-05-16",NA,"Kara_Beer","Michael_Henderson","07:15","08:20",41,"10","NE","0.1","none","N",NA,0,"good","",10,"76a6fbd4-6426-4c50-be50-9e39f9228461"
+"256",2025,"C2",1,"2025-05-16",NA,"Kara_Beer","Michael_Henderson","08:22","09:18",41,"2.5","N","0.2","none","N",NA,0,"good","",11,"df9008c5-cce9-45aa-b126-013fde2e144b"
+"257",2025,"T5",1,"2025-05-18",NA,"Emma Heydenberk","Kara_Beer","07:34","09:03",28,"9.7","N","0","none","N",NA,0,"good","",12,"5c5bb59f-f081-4341-9e09-fb987bffef70"
+"258",2025,"T6",1,"2025-05-18",NA,"Emma Heydenberk","Kara_Beer","09:03","10:06",28,"13.9","N","0.3","none","N",NA,0,"good","Stopped at mile marker 68 (technically survey was 8 miles long)",13,"6f9958fa-ca5b-487c-a936-66f5f5267fd8"
+"259",2025,"K3",2,"2025-05-19",NA,"Emma Heydenberk","Kara_Beer","07:55","09:12",30,"3.3","NE","0.3","none","S",NA,0,"good","",14,"678780d9-d861-4108-b923-e1ee314fad9a"
+"260",2025,"K2",2,"2025-05-19",NA,"Emma Heydenberk","Kara_Beer","09:12","10:22",30,"1","E","0.8","none","S",NA,0,"good","",15,"ef7f3c19-266d-481d-89d4-bab7e06f7203"
+"261",2025,"K1",2,"2025-05-19",NA,"Kara_Beer","Emma Heydenberk","10:22","11:22",28,"1.4","NW","0.1","none","S",NA,0,"good","",16,"2c26bccc-9fc3-4e82-8431-dc52fd90f33a"
+"262",2025,"T6",2,"2025-05-20",NA,"Emma Heydenberk","Kara_Beer","07:53","08:50",25,"9.4","NE","0.1","none","S",NA,0,"good","",17,"7966ef54-a038-407b-908e-f5845c495ae3"
+"263",2025,"T5",2,"2025-05-20",NA,"Emma Heydenberk","Kara_Beer","08:58","10:03",25,"7.5","NE","0.5","none","S",NA,0,"good","",18,"7e9e630d-0138-4639-8252-d557661db9f1"
+"264",2025,"T4",2,"2025-05-20",NA,"Emma Heydenberk","Kara_Beer","10:05","11:19",27,"11.7","NE","0.2","none","S",NA,0,"good","",19,"98a2b762-b40e-4f1e-aa4a-acc4acea32d6"
+"265",2025,"C2",2,"2025-05-21",NA,"Emma Heydenberk","Kara_Beer","09:34","10:44",35,"4.9","SW","0.6","none","S",NA,0,"good","",20,"6eafa886-7c1e-4315-abc5-667c01135652"
+"266",2025,"T2",2,"2025-05-23",NA,"Emma Heydenberk","Kara_Beer","08:35","10:17",50,"1.1","N","0.1","none","S",NA,0,"good","",21,"7e4a377e-d666-4c18-a065-6abc5cdf90b4"
+"267",2025,"T1",2,"2025-05-23",NA,"Kara_Beer","Emma Heydenberk","10:24","11:40",50,"0","N","0.1","none","S",NA,0,"good","",22,"a0241b36-c001-4301-9270-26331ba0d87a"
+"268",2025,"K5",2,"2025-05-25",NA,"Emma Heydenberk","Kara_Beer","08:45","09:52",37,"5.5","N","0.1","none","S",NA,0,"good","",23,"80f2ee9a-1453-49a4-b583-c45d6486f9c0"
+"269",2025,"K4",2,"2025-05-25",NA,"Emma Heydenberk","Kara_Beer","09:52","10:51",35,"9.1","NW","0.1","none","S",NA,0,"good","",24,"5a9946c2-5cd2-46ac-aaa9-a5a7abd0689b"
+"270",2025,"K4",2,"2025-05-27",NA,"Emma Heydenberk","Kara_Beer","08:21","09:45",40,"2.9","E","0.1","none","N",NA,1,"good","",25,"b9021088-e75c-4f50-9e8b-900a30881059"
+"271",2025,"K5",1,"2025-05-27",NA,"Emma Heydenberk","Kara_Beer","09:46","10:49",45,"4.3","NW","0.1","none","N",NA,1,"good","",26,"ddfa2fc4-7a6f-4cf9-a01f-176e66f0fff7"
+"272",2025,"K7",2,"2025-05-29",NA,"Emma Heydenberk","Kara_Beer","08:05","09:11",25,"4.5","NW","0.1","none","S",NA,0,"good","",27,"0f12da23-c375-4f4d-8fab-3e1f2432892d"
+"273",2025,"K6",2,"2025-05-29",NA,"Emma Heydenberk","Kara_Beer","09:11","10:26",25,"7.3","NW","0.1","light","S",NA,0,"fair","Snow",28,"287af65c-db28-4130-b5fd-8564361b79e9"
+"274",2025,"K6",1,"2025-05-30",NA,"Emma Heydenberk","Kara_Beer","08:14","09:18",32,"9.8","SE","0.1","none","N",NA,0,"good","Light snow",29,"fc721744-68f5-4ae7-9263-0f177ba41c5e"
+"275",2025,"K7",1,"2025-05-30",NA,"Emma Heydenberk","Kara_Beer","09:18","10:27",31,"5.5","S","0.1","none","N",NA,0,"good","",30,"8211e1ef-ceb8-4667-b63b-bdb646d90157"
+"276",2025,"C1",2,"2025-05-31",NA,"Emma Heydenberk","Kara_Beer","09:34","10:47",42,"3.6","S","0.1","none","S",NA,0,"good","",31,"ecf5e0be-f68a-4be5-ab2d-41bb032b5c16"
+"277",2026,"K1",1,"2026-05-12",NA,"Dakota_Walz","Kara_Beer","06:57","08:25",43.5,"11.9","NE","0.3","none","N",NA,0,"good",NA,1,"4a328b69-8f0e-439f-a119-0ed6977dbb57"
+"278",2026,"K2",1,"2026-05-12",NA,"Kara_Beer","Dakota_Walz","08:25","10:15",45,"7.9","E","0.5","none","N",NA,0,"good",NA,2,"db116e63-c6f0-4bd3-a91a-a7dd0409749a"
+"279",2026,"K3",1,"2026-05-12",NA,"Kara_Beer","Dakota_Walz","10:18","11:48",45,"1.2","E","1","none","N",NA,0,"good",NA,3,"f0a52b5a-6471-45ee-84f4-c9b17773e8ef"
+"280",2026,"T1",1,"2026-05-13",NA,"Kara_Beer","Dakota_Walz","06:17","07:56",43,"2.2","NE","0.2","light","N",NA,0,"good",NA,4,"d81720b7-a97b-4a97-9bcc-9b9987b8e6a5"
+"281",2026,"T2",1,"2026-05-13",NA,"Kara_Beer","Dakota_Walz","08:01","10:49",45,"3.6","NE","0.1","none","N",NA,0,"good",NA,5,"dbeea9e4-c2ac-406e-8374-f6961a2e42dd"
+"282",2026,"K3",2,"2026-05-14",NA,"Dakota_Walz","Kara_Beer","06:53","08:47",41,"1.2","NE","0.6","none","S",NA,0,"good",NA,6,"1c493993-f93e-4304-b760-97374f0f8797"
+"283",2026,"K2",2,"2026-05-14",NA,"Dakota_Walz","Kara_Beer","08:55","09:50",40,"1.6","N","1","none","S",NA,0,"good",NA,7,"d850d0a1-cb0c-407f-aab5-1bda6c260e33"
+"284",2026,"K1",2,"2026-05-14",NA,"Kara_Beer","Dakota_Walz","09:52","10:48",45,"1.5","N","0.4","none","S",NA,0,"good",NA,8,"40859a38-c273-47ec-944e-e2ca0fb38605"
+"285",2026,"T4",2,"2026-05-15",NA,"Dakota_Walz","Kara_Beer","06:52","09:48",33,"3.2","E","0.1","none","S",NA,0,"good",NA,9,"3f19a384-0a7b-409e-8d1a-1d4c7a9b78f6"
+"286",2026,"T3",2,"2026-05-15",NA,"Kara_Beer","Dakota_Walz","09:52","11:53",42,"4.2","SE","0.2","none","S",NA,0,"good",NA,10,"d88d8620-2e78-4b7d-81f9-2a4125a5a88d"
+"287",2026,"T2",2,"2026-05-16",NA,"Kara_Beer","Dakota_Walz","06:47","08:42",47,"8.8","E","0.4","none","S",NA,0,"good",NA,11,"a98922b1-84b1-43aa-a5fa-8c7e34fb606f"
+"288",2026,"T1",2,"2026-05-16",NA,"Kara_Beer","Dakota_Walz","08:47","09:50",50,"3","E","0.1","none","S",NA,0,"good",NA,12,"ad918794-3c35-4c20-952a-35681a832103"
+"289",2026,"K5",2,"2026-05-18",NA,"Dakota_Walz","Kara_Beer","07:28","09:06",39,"7.9","NE","0.1","none","S",NA,0,"good",NA,13,"bad5df31-17de-4e87-819a-4f6a2faec325"
+"290",2026,"K4",2,"2026-05-18",NA,"Kara_Beer","Dakota_Walz","09:09","10:41",42,"3.5","SE","0.2","none","S",NA,0,"good",NA,14,"a780e73a-a0ad-4ccc-80d7-7600bd581969"
+"291",2026,"K4",1,"2026-05-19",NA,"Kara_Beer","Dakota_Walz","07:34","09:19",43,"1","NE","0.2","none","N",NA,0,"good",NA,15,"366394fe-2414-44ab-b849-3a19fdb9b8b2"
+"292",2026,"K5",1,"2026-05-19",NA,"Dakota_Walz","Kara_Beer","09:23","10:38",48,"0","N","0.4","light","N",NA,0,"good",NA,16,"3b12db08-0467-4f5b-980b-baba1236ef24"
+"293",2026,"T5",1,"2026-05-20",NA,"Dakota_Walz","Kara_Beer","07:28","08:58",38,"2.8","NW","0.1","none","N",NA,0,"good",NA,17,"450bb728-e1a6-4167-81ab-18001979fde3"
+"294",2026,"T6",1,"2026-05-20",NA,"Kara_Beer","Dakota_Walz","08:59","10:13",35,"7.5","NE","0.3","none","N",NA,0,"good",NA,18,"4aa5f397-9f0e-461c-8649-8fea7bf6079c"
+"295",2026,"K6",2,"2026-05-21",NA,"Kara_Beer","Dakota_Walz","09:23","10:31",41,"1","NE","0.1","none","S",NA,0,"good",NA,19,"7577516d-6df6-4ac9-a451-200d4dfd976a"
+"296",2026,"T5",2,"2026-05-21",NA,"Kara_Beer","Dakota_Walz","10:31","11:42",43,"3.8","NE","0.2","none","S",NA,0,"good",NA,20,"a95a8fcd-83fa-48d3-bf07-5b143377c642"
+"297",2026,"T3",1,"2026-05-22",NA,"Dakota_Walz","Kara_Beer","08:36","11:18",3.3,"NA","NE","0.1","none","N",NA,0,"good",NA,21,"153bce32-3775-4fd3-acc6-01192f5fa8cc"
+"298",2026,"C1",1,"2026-05-24",NA,"Dakota_Walz","Kara_Beer","07:41","08:42",43,"3.6","NE","0.1","none","N",NA,0,"good",NA,22,"7234423b-ae5b-4dae-8459-d1d92a62f71e"
+"299",2026,"C2",1,"2026-05-24",NA,"Dakota_Walz","Kara_Beer","08:43","09:38",41,"4.3","N","0.2","none","N",NA,0,"good",NA,23,"fce2a870-5f54-4e0a-ad66-995b448f1880"
+"300",2026,"C2",2,"2026-05-24",NA,"Dakota_Walz","Kara_Beer","09:54","10:50",42,"5.8","N","0.3","none","S",NA,0,"good",NA,24,"5d84f82c-e345-4b13-92ab-b749117bd986"
+"301",2026,"C1",2,"2026-05-24",NA,"Dakota_Walz","Kara_Beer","10:52","11:50",44,"4.3","N","0.1","none","S",NA,0,"good",NA,25,"2c37a4ac-7c87-458e-af23-61c0d1ae3dcd"
+"302",2026,"K6",1,"2026-05-25",NA,"Kara_Beer","Dakota_Walz","08:32","09:27",32,"5","N","0","light","N",NA,0,"good",NA,26,"7979ee07-53d1-499b-acd4-ac391b6bba72"
+"303",2026,"K7",1,"2026-05-25",NA,"Kara_Beer","Dakota_Walz","09:27","10:29",30,"5.4","NE","0.1","none","N",NA,0,"good",NA,27,"81a9a746-8f48-4215-b0d0-c48754e71c83"
+"304",2026,"K7",2,"2026-05-25",NA,"Kara_Beer","Dakota_Walz","10:33","11:39",37,"4.6","N","0","none","S",NA,0,"good",NA,28,"184e6006-fec2-4965-9d24-8268fee56cad"
+"305",2026,"T4",1,"2026-05-29",NA,"Kara_Beer","Dakota_Walz","08:15","09:43",50,"1.1","W","0.1","none","N",NA,0,"good",NA,29,"54c84ccb-4665-48c8-acd9-c12e41b3b7a8"
+"306",2026,"K6",2,"2026-05-31",NA,"Dakota_Walz","Kara_Beer","09:34","10:35",48,"2.7","SW","0","none","S",NA,1,"good",NA,30,"388e38ea-020a-46b4-82fe-216571ef3642"
