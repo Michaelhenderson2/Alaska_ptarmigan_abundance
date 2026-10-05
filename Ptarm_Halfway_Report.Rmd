@@ -1,0 +1,107 @@
+---
+title: "Ptarmigan-Abundance-Progress-Report"
+author: "Rose An"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::html_document2:
+    toc: TRUE
+    toc_float: TRUE
+link-citations: yes
+fontsize: 12pt
+bibliography: #Bibliography_Reproducible_Science_9.bib
+csl: #AmJBot.csl
+---
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+# Clear working environment
+rm( list = ls() )
+
+# Get working directory (set to right one if it's wrong)
+getwd()
+```
+
+# Introduction and Research Question
+
+## Background
+ 
+
+## Research Question
+
+
+```{r packages, include = FALSE, message = FALSE, warning = FALSE}
+###~~~
+# Load R packages
+###~~~
+#Create a vector w/ the required R packages
+# --> If you have a new dependency, don't forget to add it in this vector
+pkg <- c("knitr", "rmarkdown", "bookdown", "formattable", "kableExtra", "dplyr", "magrittr", "prettydoc", "htmltools", "knitcitations", "bibtex", "devtools", "tidyverse", "ggplot2", "raster", "unmarked")
+
+##~~~
+#2. Check if pkg are already installed on your computer
+##~~~
+print("Check if packages are installed")
+#This line below outputs a list of packages that are not installed. Which ones of the packages above are installed in computer, print packages that are not installed. Should print 0.
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+##~~~
+#3. Install missing packages
+##~~~
+# Use an if/else statement to check whether packages have to be installed
+# WARNING: If your target R package is not deposited on CRAN then you need to adjust code/function
+if(length(new.pkg) > 0){
+  print(paste("Install missing package(s):", new.pkg, sep=' '))
+  install.packages(new.pkg, dependencies = TRUE)
+}else{
+  print("All packages are already installed!")
+}
+
+##~~~
+#4. Load all required packages
+##~~~
+print("Load packages and return status")
+#Here we use the sapply() function to require all the packages
+# To know more about the function type ?sapply() in R console
+# Just an easier way to load all packages
+sapply(pkg, require, character.only = TRUE)
+# debug = right-pointing arrow next to code will load in console so you can go line by line and debug. pressing this also seemed to resolve the CRAN needs a mirror error
+# Generate BibTex citation file for all loaded R packages
+# used to produce report Notice the syntax used here to
+# call the function
+knitr::write_bib(.packages(), file = "packages.bib")
+# The .packages() function returns invisibly the names of all packages loaded in the current R session (to see the output, use .packages(all.available = TRUE)). This ensures that all packages used in your code will have their citation entries written to the .bib file. This packages is then used in the Appendix to cite the code used
+```
+
+```{r chunk setup, include = FALSE}
+### Chunk options: see http://yihui.name/knitr/options/ ###
+### Text output
+opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE, include = TRUE)
+## Code formatting
+opts_chunk$set(tidy = TRUE, tidy.opts = list(blank = FALSE, width.cutoff = 60),
+    highlight = TRUE)
+## Code caching
+opts_chunk$set(cache = 2, cache.path = "cache/")
+## Plot output The first dev is the master for the output
+## document
+opts_chunk$set(fig.path = "Figures_Ptarm/", dev = c("png", "pdf"),
+    dpi = 300)
+## Figure positioning
+opts_chunk$set(fig.pos = "H")
+```
+
+# Data
+
+
+```{r pulldata, echo = FALSE}
+# set path to where you can access your data #
+# Note that the path will be different for your.#
+datapath <- datadir <- paste( getwd(), "/Data/", sep = "" )
+# load ptarmigan raw detection data
+detdf <- read.csv( file = paste( datadir, "2026-07-23_all_prey_data.csv", sep = ""),
+                   header = TRUE )
+#view
+head( detdf ); dim( detdf )
+```
+
+```{r dataclean, echo = FALSE}
+
+```
