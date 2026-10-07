@@ -20,13 +20,9 @@ rm( list = ls() )
 getwd()
 ```
 
-# Introduction and Research Question
+# Introduction and Objective
 
-## Background
- 
-
-## Research Question
-
+Willow and Rock Ptarmigan are primary prey sources for the Gyrfalcon, a declining Arctic raptor species. For this research project, I will aim to estimate annual ptarmigan abundance to support PhD student Michael Henderson's research linking adult survival of Gyrfalcons to ptarmigan numbers in Alaska along the Seward Peninsula.
 
 ```{r packages, include = FALSE, message = FALSE, warning = FALSE}
 ###~~~
@@ -86,10 +82,12 @@ opts_chunk$set(fig.path = "Figures_Ptarm/", dev = c("png", "pdf"),
     dpi = 300)
 ## Figure positioning
 opts_chunk$set(fig.pos = "H")
+opts_chunk$set( dplyr.width = Inf, dplyr.print_min = 100 )
 ```
 
 # Data
 
+Since 2016, the Peregrine Fund has conducted annual distance sampling surveys along 10 mi road transects in the Seward Peninsula of Alaska. Each transect was surveyed twice yearly. Surveys were completed by two observers scanning for ptarmigan in a vehicle. When ptarmigan were spotted, observers would tally birds and record distance to the bird with rangefinders. Data from 2016-2026 was cleaned and combined into one csv by Kara Beer. The first rows of the dataset and its dimensions are shown here:
 
 ```{r pulldata, echo = FALSE}
 # set path to where you can access your data #
@@ -101,7 +99,63 @@ detdf <- read.csv( file = paste( datadir, "2026-07-23_all_prey_data.csv", sep = 
 #view
 head( detdf ); dim( detdf )
 ```
+## Cleaning
 
-```{r dataclean, echo = FALSE}
+```{r dataclean, include = FALSE}
 
+#database has observations that are not ptarmigan. view all the species in the species column
+unique(detdf$species)
+
+#new dataframe with only relevant columns and only for ptarmigan obs.
+cleandetdf <- detdf %>% 
+  dplyr::select(year, round, observer1, observer2, species, cluster_size, distance) %>% #select relevant columns (cluster_size = ptarmigan count),
+  dplyr::filter(., species == "WIPT" | species == "ROPT" | species == "PTAR") %>% #filter out rows that are not ptarmigan counts
+  dplyr::mutate(., obsv_pair = paste(observer1, observer2, year, sep = ", ")) #create a new column with unique observer pairs and years
+
+#view
+head(cleandetdf); dim(cleandetdf)
+#5263 observations
 ```
+After filtering out observations of non-ptarmigan species, I am left with `r dim(cleandetdf)` observations.
+
+## Visualization
+
+Key to distance sampling models is fitting distance sampling curves to detection of ptarmigan by distance. First, I will create histograms of distance to ptarmigan by observer pair/year and survey to determine the type of curve that will be used in the model. 
+
+```{r datavis, echo = FALSE}
+
+#create an object that stores all unique observer pairs by year
+pairs <- c(unique(cleandetdf$obsv_pair))
+#view
+pairs
+
+#for loop to create histograms of distance by observer pair/year and survey (1st or 2nd)
+for( p in 1:length(pairs) ){
+  # create an object with the ggplot so that you can display it 
+  # in a loop 
+  a <- ggplot( subset(cleandetdf, obsv_pair %in% pairs[p]), aes(x = distance, fill = species) ) + #choose your data
+    theme_bw( base_size = 15 ) + #choose a preset theme
+    labs( title = pairs[p] ) + #label x axis using our observer pairs
+    geom_histogram( stat = "count") + #plot histogram
+    facet_wrap(~round) #plot by survey 1 and 2
+    #scale_x_discrete(breaks = scales::pretty_breaks(5))
+  # display your plot object
+  print( a )
+}
+
+#distbins <- seq( min( cleandetdf[,"distance"]), max( cleandetdf[,"distance"]),
+                  #length.out = 10 )
+#unique(detdf$distance)
+#str(detdf$distance)
+#oh distances are characters bc of <100, etc.
+```
+
+```{r stopsave}
+#save rdata and load in at next work session
+save.image( "PtarmAbun.RData" )
+load( "PtarmAbun.RData" )
+```
+
+# Analysis
+
+I will use the unmarked package and gdistsamp or distsamp functions.
