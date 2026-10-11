@@ -18,6 +18,9 @@ rm( list = ls() )
 
 # Get working directory (set to right one if it's wrong)
 getwd()
+
+#load rdata if needed
+load( "PtarmAbun.RData" )
 ```
 
 # Introduction and Objective
@@ -78,7 +81,7 @@ opts_chunk$set(tidy = TRUE, tidy.opts = list(blank = FALSE, width.cutoff = 60),
 opts_chunk$set(cache = 2, cache.path = "cache/")
 ## Plot output The first dev is the master for the output
 ## document
-opts_chunk$set(fig.path = "Figures_Ptarm/", dev = c("png", "pdf"),
+opts_chunk$set(fig.path = "Figures_Ptarm/", dev = c("png"),
     dpi = 300)
 ## Figure positioning
 opts_chunk$set(fig.pos = "H")
@@ -101,61 +104,169 @@ head( detdf ); dim( detdf )
 ```
 ## Cleaning
 
-```{r dataclean, include = FALSE}
+First, I removed all observations that are not of Rock or Willow Ptarmigan.
+```{r cleannonptarm, include = FALSE}
 
 #database has observations that are not ptarmigan. view all the species in the species column
 unique(detdf$species)
 
 #new dataframe with only relevant columns and only for ptarmigan obs.
-cleandetdf <- detdf %>% 
+ptarmdetdf <- detdf %>% 
   dplyr::select(year, round, observer1, observer2, species, cluster_size, distance) %>% #select relevant columns (cluster_size = ptarmigan count),
-  dplyr::filter(., species == "WIPT" | species == "ROPT" | species == "PTAR") %>% #filter out rows that are not ptarmigan counts
-  dplyr::mutate(., obsv_pair = paste(observer1, observer2, year, sep = ", ")) #create a new column with unique observer pairs and years
+  dplyr::filter(., species == "WIPT" | species == "ROPT" )  #filter out rows that are not willow and rock ptarmigan counts
+
+#view
+head(ptarmdetdf); dim(ptarmdetdf)
+
+```
+This removed *`r nrow( detdf ) - nrow(ptarmdetdf)`* observations.
+
+In my initial data exploration, I discovered that the data in the distance row was character class instead of numeric class due to the inclusion of values such as "<100," ">1200," and "U." My next cleaning step is to turn the column into numeric values and filter out the NAs converted from the greater than, less than values, and U values.
+
+```{r cleandistance, include = FALSE}
+
+# First, check class of distance column
+sapply(ptarmdetdf$distance, class)
+# all character
+
+#convert to numeric
+ptarmdetdf$distance <- as.numeric(ptarmdetdf$distance)
+
+#check again to make sure
+sapply(ptarmdetdf$distance, class)
+#all numeric
+
+#drop all rows with NAs
+cleandetdf <- ptarmdetdf %>%
+  drop_na(.,"distance")
+
+#check for NAs
+sum(is.na(cleandetdf$distance))
+#0 NAs
 
 #view
 head(cleandetdf); dim(cleandetdf)
-#5263 observations
+
 ```
-After filtering out observations of non-ptarmigan species, I am left with `r dim(cleandetdf)` observations.
+
+This cleaning step removed *`r nrow( ptarmdetdf ) - nrow(cleandetdf)`* rows.
 
 ## Visualization
 
-Key to distance sampling models is fitting distance sampling curves to detection of ptarmigan by distance. First, I will create histograms of distance to ptarmigan by observer pair/year and survey to determine the type of curve that will be used in the model. 
+Key to distance sampling models is fitting distance sampling curves to detection of ptarmigan by distance. First, I will create histograms of distance to ptarmigan for each observer pair by year for each round of surveys to determine the type of curve that will be used in the model. 
 
-```{r datavis, echo = FALSE}
+First, I added a column to my dataframe with each unique pair of observers.
 
-#create an object that stores all unique observer pairs by year
-pairs <- c(unique(cleandetdf$obsv_pair))
+```{r obspair, include = FALSE}
+
+#make a column with each unique pair of observers
+cleandetdf$obsv_pair <- apply(cleandetdf[, c("observer1", "observer2")], 1, function(x) {
+   last <- word(x, -1)
+   tolower(paste(sort(last), collapse = "-"))
+ })
+
 #view
-pairs
+cleandetdf$obsv_pair
+
+#what are the unique observer pairs?
+unique(cleandetdf$obsv_pair)
+
+#check for NAs just in case
+sum(is.na(cleandetdf$obsv_pair))
+  
+```
+The unique observer pairs are: `r unique(cleandetdf$obsv_pair)`
+
+First, I visualized the general histogram of all distances ptarmigans are detected at. 
+```{r allhist, echo = FALSE}
+
+#plot histogram of distances grouped by species
+ggplot( cleandetdf, aes(x = distance, fill = species)) +
+  theme_classic() +
+  geom_histogram()
+
+```
+
+Next, I create two different dataframes for each of the two rounds of surveys.
+
+```{r rounds, include = FALSE}
+
+#just round 1 surveys
+det1 <- cleandetdf %>%
+  dplyr::filter(., round == "1" )
+
+#view
+head(det1); dim(det1)
+#2808 rows
+
+#just round 2 surveys
+det2 <- cleandetdf %>%
+  dplyr::filter(., round == "2" )
+
+#view
+head(det2); dim(det2)
+#2382 rows
+
+```
+There are `r nrow(det1)` observations in all round 1 surveys and `r nrow(det2)` observations in all round 2 surveys.
+
+### Round 1 Histograms
+
+Here are the histograms for round 1 of surveys for each observer pair by year.
+
+```{r round1hist, echo = FALSE}
+
+#create an object that stores all unique observer pairs
+pairs1 <- c(unique(det1$obsv_pair))
+#view
+pairs1
 
 #for loop to create histograms of distance by observer pair/year and survey (1st or 2nd)
-for( p in 1:length(pairs) ){
+for( p in 1:length(pairs1) ){
   # create an object with the ggplot so that you can display it 
   # in a loop 
-  a <- ggplot( subset(cleandetdf, obsv_pair %in% pairs[p]), aes(x = distance, fill = species) ) + #choose your data
+  a <- ggplot( subset(det1, obsv_pair %in% pairs1[p]), aes(x = distance, fill = species) ) + #data subsetted to observer pair by year. plot distance and color code by species.
     theme_bw( base_size = 15 ) + #choose a preset theme
-    labs( title = pairs[p] ) + #label x axis using our observer pairs
-    geom_histogram( stat = "count") + #plot histogram
-    facet_wrap(~round) #plot by survey 1 and 2
+    labs( title = pairs1[p], subtitle = "Round 1" ) + #label graphs using our observer pairs
+    geom_histogram() + #plot histogram
+    facet_wrap(~year) #plot by survey 1 and 2
     #scale_x_discrete(breaks = scales::pretty_breaks(5))
   # display your plot object
   print( a )
 }
-
-#distbins <- seq( min( cleandetdf[,"distance"]), max( cleandetdf[,"distance"]),
-                  #length.out = 10 )
-#unique(detdf$distance)
-#str(detdf$distance)
-#oh distances are characters bc of <100, etc.
 ```
 
-```{r stopsave}
+### Round 2 Histograms
+
+Here are the histograms for round 2 of surveys for each observer pair by year.
+
+```{r round2hist, echo = FALSE}
+
+#create an object that stores all unique observer pairs
+pairs2 <- c(unique(det2$obsv_pair))
+#view
+pairs2
+
+#for loop to create histograms of distance by observer pair/year and survey (1st or 2nd)
+for( p in 1:length(pairs2) ){
+  # create an object with the ggplot so that you can display it 
+  # in a loop 
+  a <- ggplot( subset(det2, obsv_pair %in% pairs2[p]), aes(x = distance, fill = species) ) + #data subsetted to observer pair by year. plot distance and color code by species.
+    theme_bw( base_size = 15 ) + #choose a preset theme
+    labs( title = pairs2[p], subtitle = "Round 2" ) + #label graphs using our observer pairs
+    geom_histogram() + #plot histogram
+    facet_wrap(~year) #plot by survey 1 and 2
+    #scale_x_discrete(breaks = scales::pretty_breaks(5))
+  # display your plot object
+  print( a )
+}
+```
+
+```{r stopsave, include = FALSE}
 #save rdata and load in at next work session
 save.image( "PtarmAbun.RData" )
-load( "PtarmAbun.RData" )
 ```
 
 # Analysis
 
-I will use the unmarked package and gdistsamp or distsamp functions.
+I will use the unmarked package and gdistsamp or distsamp function. I will run two sepearate models for the two species.
