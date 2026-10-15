@@ -8,8 +8,6 @@ output:
     toc_float: TRUE
 link-citations: yes
 fontsize: 12pt
-bibliography: #Ptarmigan Abundance.bib
-csl: #AmJBot.csl
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -25,7 +23,7 @@ getwd()
 
 # Introduction 
 
-Willow (*Lagopus lagopus*) and Rock Ptarmigan (*Lagopus muta*) are primary prey sources for the Gyrfalcon, a declining Arctic raptor species. For this research project, I aim to estimate annual ptarmigan abundance from data collected by the Peregrine Fund to support PhD student Michael Henderson's research linking adult survival of Gyrfalcons to ptarmigan numbers in Alaska along the Seward Peninsula.
+Willow (*Lagopus lagopus*) and Rock Ptarmigan (*Lagopus muta*) are primary prey sources for the Gyrfalcon, a declining Arctic raptor species. For this research project, I aim to estimate annual ptarmigan abundance from data collected by the Peregrine Fund to support PhD student Michael Henderson's research linking adult survival of Gyrfalcons to ptarmigan numbers and other factors in Alaska along the Seward Peninsula.
 
 ## Research Question
 
@@ -122,7 +120,7 @@ head( detdf ); dim( detdf )
 ## Cleaning
 
 First, I removed all observations that are not of Rock or Willow Ptarmigan.
-```{r cleannonptarm, include = FALSE}
+```{r cleannonptarm, results = 'hide'}
 
 #database has observations that are not ptarmigan. view all the species in the species column
 unique(detdf$species)
@@ -136,11 +134,11 @@ ptarmdetdf <- detdf %>%
 head(ptarmdetdf); dim(ptarmdetdf)
 
 ```
-This removed `r nrow( detdf ) - nrow(ptarmdetdf)` observations.
+This removes `r nrow( detdf ) - nrow(ptarmdetdf)` observations.
 
-In my initial data exploration, I discovered that the data in the distance row was character class instead of numeric class due to the inclusion of values such as "<100," ">1200," and "U". There were also one negative distance recorded. My next cleaning step is to turn the column into numeric values and filter out the NAs converted from the greater than, less than values, and U values.
+In my initial data exploration, I discovered that the data in the distance row was character class instead of numeric class due to the inclusion of values such as "<100," ">1200," and "U". There were also one negative distance recorded (-99). My next cleaning step is to turn the column into numeric values and filter out the negative number and the NAs converted from the greater than, less than, and U values.
 
-```{r cleandistance, include = FALSE}
+```{r cleandistance, results = 'hide', warning = FALSE}
 
 # First, check class of distance column
 sapply(ptarmdetdf$distance, class)
@@ -167,7 +165,7 @@ head(cleandetdf); dim(cleandetdf)
 
 ```
 
-This cleaning step removed `r nrow( ptarmdetdf ) - nrow(cleandetdf)` rows.
+This removes `r nrow( ptarmdetdf ) - nrow(cleandetdf)` rows.
 
 ## Data Summaries
 
@@ -205,17 +203,17 @@ sum(ropt$females) #60
 
 ```
 
-There are `r nrow(cleandetdf)` observations total. There are `r sum(cleandetdf$cluster_size)` individual willow and rock ptarmigan counted over all 10 years, `r sum(cleandetdf$males)` of which are male and `r sum(cleandetdf$females)` of which are female. There are `r sum(wipt$cluster_size)` Willow Ptarmigan, `r sum(wipt$males)` of which are male and`r sum(wipt$females)` of which are female. There are `r sum(ropt$cluster_size)` Rock Ptarmigan, `r sum(ropt$males)` of which are male and `r sum(ropt$females)` of which are female. 
+There are now `r nrow(cleandetdf)` observations total. There are a total of `r sum(cleandetdf$cluster_size)` individual Willow and Rock Ptarmigan counted over all 10 years, `r sum(cleandetdf$males)` of which are male and `r sum(cleandetdf$females)` of which are female. There are `r sum(wipt$cluster_size)` Willow Ptarmigan, `r sum(wipt$males)` of which are male and `r sum(wipt$females)` of which are female. There are `r sum(ropt$cluster_size)` Rock Ptarmigan, `r sum(ropt$males)` of which are male and `r sum(ropt$females)` of which are female. 
 
-There are pretty wide disparities between species and sex, so it may be best to run 4 separate models.
+There are pretty wide disparities in numbers between species and sex, so it may be best to run 4 separate models. 
 
 ## Visualization
 
-Key to distance sampling models is fitting distance sampling curves to detection of ptarmigan by distance. I will create histograms of distance to ptarmigan for each observer pair by year for each round of surveys to look for any potential biases (are some pairs better at looking for ptarmigan than others? Are observers better at finding ptarmigan close to the road than further from the road?). This visualization also will tell us what kind of distance curves we should use.
+Key to the detection submodel of distance sampling models is fitting distance sampling curves to detection of ptarmigan by distance. I will create histograms of distance to ptarmigan for each observer pair by year for each round of surveys to look for any potential biases (are some pairs better at looking for ptarmigan than others? are observers better at finding ptarmigan close to the road than further from the road?) and to decide what kind of distance curve I should use.
 
-First, I visualized the general histogram of all distances ptarmigans are detected at and by species. To run the model specified in Royle and Kery's (2016) book chapter Modeling Abundance Using Hierarchical Distance Sampling in Applied Hierarchical Modeling in Ecology, distances will need to be binned into classes. Royle and Kery advises that bin widths be <10% of the max distance. The highest distance recorded for Willow Ptarmigan is `r max(wipt$distance)` m, and 10% of which is `r max(wipt$distance)/10` m. The highest distance recorded for Rock Ptarmigan is `r max(ropt$distance)` m, and 10% of which is `r max(ropt$distance)/10` m. Thus, bins of 50 m should suffice. There should be no need to truncate distances as long as distances are binned.
+First, I created a general histogram of all distances ptarmigans are detected at by species. To run the models I chose, distances will need to be binned into classes. Royle and Kery's (2016) book chapter Modeling Abundance Using Hierarchical Distance Sampling in Applied Hierarchical Modeling in Ecology advises that bin widths be <10% of the max distance. The highest distance recorded for Willow Ptarmigan is `r max(wipt$distance)` m, 10% of which is `r max(wipt$distance)/10` m. The highest distance recorded for Rock Ptarmigan is `r max(ropt$distance)` m, 10% of which is `r max(ropt$distance)/10` m. Thus, bins of 50 m should suffice. There should be no need to truncate distances as long as distances are binned. The following histograms have distances binned by 50 m.
 
-```{r allhist, echo = FALSE, warning = FALSE, message = FALSE}
+```{r allhist, warning = FALSE, message = FALSE, results = 'hide'}
 
 #plot histogram of distances grouped by species
 ggplot( cleandetdf, aes(x = distance, fill = species)) +
@@ -224,9 +222,11 @@ ggplot( cleandetdf, aes(x = distance, fill = species)) +
 
 ```
 
+So far, distance data for both species fits a half normal distribution for the distance curve. 
+
 To start the process of visualizing data by round and observer pair, I first added a column to my dataframe with each unique pair of observers.
 
-```{r obspair, include = FALSE}
+```{r obspair, results = 'hide'}
 
 #make a column with each unique pair of observers
 cleandetdf$obsv_pair <- apply(cleandetdf[, c("observer1", "observer2")], 1, function(x) {
@@ -246,9 +246,9 @@ sum(is.na(cleandetdf$obsv_pair))
 ```
 The unique observer pairs are: `r unique(cleandetdf$obsv_pair)`
 
-So far, distance data for both species fits a half normal distribution for the distance curve. Next, I create two different dataframes for each of the two rounds of surveys to eventually compare possible data discrepancies in round 1 vs 2.
+Next, I create two different dataframes for each of the two rounds of surveys so I can compare possible data discrepancies in round 1 vs 2.
 
-```{r rounds, include = FALSE}
+```{r rounds, results = 'hide'}
 
 #just round 1 surveys
 det1 <- cleandetdf %>%
@@ -256,7 +256,6 @@ det1 <- cleandetdf %>%
 
 #view
 head(det1); dim(det1)
-#2422 rows
 
 #just round 2 surveys
 det2 <- cleandetdf %>%
@@ -264,15 +263,13 @@ det2 <- cleandetdf %>%
 
 #view
 head(det2); dim(det2)
-#2055 rows
 
 ```
 There are `r nrow(det1)` observations in all round 1 surveys and `r nrow(det2)` observations in all round 2 surveys.
 
 ### Histograms by Survey Round
 
-Here are histograms for each round:
-```{r roundshist, echo = FALSE}
+```{r roundshist, results = 'hide'}
 #plot histogram of distances for each round grouped by species
 ggplot( det1, aes(x = distance, fill = species)) +
   theme_classic() +
@@ -285,18 +282,17 @@ ggplot( det2, aes(x = distance, fill = species)) +
   geom_histogram(binwidth = 50) 
 ```
 
-Round 1 has more data than round 2, but both fit the half normal distribution shape well, and each distance bin has proportionally about the same distance count in each round. From this visualization, I would consider only using round 1 data for the final model because it's similar enough to round 2 but has more data.
 
 ### Round 1 Histograms by Observer Pair
 
 Here are the histograms for round 1 of surveys for each observer pair by year to see if there are data from any pairs that should be excluded.
 
-```{r round1hist, echo = FALSE, warning = FALSE, message = FALSE}
+```{r round1hist, warning = FALSE, message = FALSE, results = 'hide'}
 
 #create an object that stores all unique observer pairs
 pairs1 <- c(unique(det1$obsv_pair))
 #view
-pairs1
+#pairs1
 
 #for loop to create histograms of distance by observer pair/year and survey (1st or 2nd)
 for( p in 1:length(pairs1) ){
@@ -317,12 +313,12 @@ for( p in 1:length(pairs1) ){
 
 Here are the histograms for round 2 of surveys for each observer pair by year.
 
-```{r round2hist, echo = FALSE, warning = FALSE, message = FALSE}
+```{r round2hist, warning = FALSE, message = FALSE, results = 'hide'}
 
 #create an object that stores all unique observer pairs
 pairs2 <- c(unique(det2$obsv_pair))
 #view
-pairs2
+#pairs2
 
 #for loop to create histograms of distance by observer pair/year and survey (1st or 2nd)
 for( p in 1:length(pairs2) ){
@@ -339,30 +335,58 @@ for( p in 1:length(pairs2) ){
 }
 ```
 
-INTERPRETATION
+### Interpretation
+
+Round 1 has more data than round 2, but both fit the half normal distribution shape well, and each distance bin has proportionally about the same count for both rounds. Unfortunately, the unmarked package does not allow for multiple replicates within seasons to be accounted for, so only using data one round may be the best way forward. From this visualization, I would consider only using round 1 data for the final model because the data is similar enough to round 2, but there is more data. 
+
+Detection curves for observer pairs are pretty consistent with each other and most histograms fit the halfnorm function. All data can be kept, especially if I am only using round 1 data. Royle and Kery (2016) does outline a way to account for double observers in a Bayesian model, so that may be a consideration future analyses. 
 
 ## Predictors
 
-I will not be looking at covariates for detection or abundance for the class project to keep it simple. Observers did collect environmental covariates for each survey (eg temp, wind speed), so future analysis could include them in the detection submodel to determine whether or not they influenced detection. Factors like vegetation cover and landscape features (would obscure ptarmigan, especially further out) could also influence detection, so we could consider getting these covariate values from remote sensed data, but that might be too complicated for right now. Factors like gyrfalcon and other predator abundance and vegetation data (since adults are herbivorous) could influence abundance, but ptarmigan also naturally cycle in population numbers in some areas, which could include our study area. It might be best to not include a covariate model on abundance for now and first see how the numbers look year to year.
+I will not be looking at environmental covariates for the class project to keep it simple. Observers did collect environmental covariates for each survey (eg temp, wind speed), so future analysis could include them in the detection submodel to determine whether or not they influenced detection. Factors like vegetation cover and landscape features (would obscure ptarmigan, especially further out) could also influence detection, so I could consider getting these covariate values from remote sensed data, but that might be too complicated for right now. Factors like gyrfalcon and other predator abundance and vegetation data (since adults are herbivorous) could influence abundance, but ptarmigan also naturally cycle in population numbers in some areas, which could include our study area. It might be best to not include abundance covariates for now and first see how the numbers look year to year. Similar covariates could affect survival and recruitment (since this will be an open population model), but once again I will not including them for the class project for simplicity.
 
 # Analysis
 
-I will use the unmarked package distsamp function to run a hierarchical distance sampling model following Royle and Kery (2016). I may run 4 separate models (by species and sex). The general equation will be:
+I will be running a hierarchical distance sampling (HDS) model. Unlike conventional distance sample (CDS) models, HDS models account for spatial variation in abundance between sites, since Lambda(s) measures mean site-level abundance. Total abundance in the area can still be calculated, but HDS allows us to get at the reasons for spatial variation among sites if we so choose (i.e., it's more flexible). 
 
+I will run a multi-season HDS model with unmarked package [distsampOpen function](https://rbchan.github.io/unmarked/reference/distsampOpen.html) to account for multiple years of sampling. I may run 4 separate models (by species and sex). The general equation will be:
 
-Abundance: N(s) ~ Poisson(Lambda(s)) where s = sites
+**N[s1] ~ Poisson (Lambda[s1])**, where N[s1] is the populations size at site s and initial sampling period t = 1. This can also be Negative Binomial or Zero-Inflated Poisson, but I will start with Poisson.
 
-Detection: (y(s1)...y(sH)) ~ Multinomial(N(s), pi(s)), where (y(s1)...y(sH)) are observations in each distance class h and pi(s) is a parameter describing multinomial cell probabilities (the probability an individual is both occurs and is in distance class h). 
+**S[st] ~ Binomial (N[st-1], phi)**, where S[st] is individuals that survive from the previous time t at site s as a function of abundance at the last time interval t-1 at site s and apparent survival probability phi.
 
-Unlike conventional distance sample (CDS) models, hierarchical distance sampling (HDS) models account for spatial variation in abundance between sites, since Lambda(s) measures mean site-level abundance. Total abundance in the area can still be calculated, but HDS allows us to get at the reasons for spatial variation among sites if we so choose (i.e., it's more flexible). 
+**R[st] ~ Poisson (N[st-1], gamma)**, where R[st] is number of new recruits at site s and time t and gamma is the per capita recruitment rate.
+
+**y[st]|N[st] ~ Multinomial (N[st], pi[st])**, where y[st] is observations at site s and time t for all distance classes conditional on abundance at site s and time t, and pi[st] is a parameter describing multinomial cell probabilities (the probability an individual occurs at site s and time t).
+
+The general format and arguments for the code are shown below:
+
+```{r function, eval = FALSE}
+
+distsampOpen(lambdaformula, gammaformula, omegaformula, pformula, #abundance, recruitment, survival, detection
+    data, #unmarked dataframe (unmarkedFrameDSO) with matrix of observations
+    keyfun=c("halfnorm", "exp", "hazard", "uniform"), #halfnorm
+    output=c("abund", "density"), unitsOut=c("ha", "kmsq"), #abundance, so don't need unitsout (which relates to density)
+    mixture=c("P", "NB", "ZIP"), #P for Poisson
+    K, #I think the default is max count+100 if it follows the same rules as the gdistsamp function
+    dynamics=c("constant", "autoreg", "notrend", "trend", "ricker", "gompertz"), #type of pop dynamics. need to discuss
+    fix=c("none", "gamma", "omega"), #omega = omega (survival) = 1, gamma = gamma (recruitment) = 0. need to discuss
+    immigration=FALSE, #whether or not to include immigration term (iota) in pop dynamics
+    iotaformula = ~1, #formula for average number of immigrants to a site per time step (year)
+    starts, #vector of starting values
+    method="BFGS", #optimization method
+    se=TRUE, ...) #whether or not to calc standard errors
+
+#my sense is to exclude all the immigration arguments for simplicity for now and bc we don't have any way to measure them
+```
 
 ## Model Evaluation
 
-I will assess model goodness-of-fit using the Pearson chi-square statistic as suggested by Mackenzie and Bailey (2004) using the AICmodavg package. I will be looking for a high p-value and low chi-squared values by year. Then, I will evaluate the model against a null model using the pseudo R^2 described by Nagelkerke (2004) using the model selection function in unmarked. I will be looking for pseudo r squared values close to 1.
+I will assess model goodness-of-fit using the parametric bootstrapping function in unmarked as shown in Royle and Kery (2016): Modeling Abundance Using Multinomial N-Mixture Models. This method computes error sums-of-squares, Chi-square, and Freeman-Turkey values. I will be looking for moderate p-values for all three statistics (not close to 0 or 1). I will also compute the c-hat to test for over or under dispersion following (Johnson et al. 201: A model-based approach for making ecological inference from distance sampling data).
 
 ## Visualize and Interpret Results
 
-I will plot total abundance of ptarmigan in the Seward Peninsula over time (by year). If I run 4 models, there will be 4 such graphs. 
+I will plot total abundance of ptarmigan in the Seward Peninsula over time (by year). If I run 4 models, there will be 4 graphs. 
 
 ```{r stopsave, include = FALSE}
 #save rdata and load in at next work session
