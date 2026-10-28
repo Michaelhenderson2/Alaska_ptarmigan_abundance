@@ -75,21 +75,30 @@ head(cleandetdf1); dim(cleandetdf1)
 nrow( cleandetdf ) - nrow(cleandetdf1) #4650
 
 ######## data visualization #############
+#create long dataframe where each row is an individual (there are no 0's in this)
+datvis <- ptarmdetdf1 %>%
+  pivot_longer(
+    cols = c(males, females),
+    names_to = "sex",
+    values_to = "n"
+  ) %>% #turns long and creates column for sex and "n" which is the number of rows that will be needed.
+  uncount(n)
+head(datvis); dim(datvis) #6036 rows = matches sum of males and females in original dataset
 
 ## Create dataframes for each round
 #just round 1 surveys
-det1 <- cleandetdf1 %>%
+det1 <- datvis %>%
   dplyr::filter(., round == "1" )
 
 #view
-head(det1); dim(det1) #3081 rows
+head(det1); dim(det1) #3259 rows
 
 #just round 2 surveys
-det2 <- cleandetdf1 %>%
+det2 <- datvis %>%
   dplyr::filter(., round == "2" )
 
 #view
-head(det2); dim(det2) #2647 rows
+head(det2); dim(det2) #2777 rows
 
 ##### Round 1 Rock Ptarm 
 #create new dataset with just round 1 ropt
@@ -97,7 +106,7 @@ det1rp <- det1 %>%
   dplyr::filter(., species == "ROPT")
 #view
 head(det1rp); dim(det1rp)
-#202 rows
+#211 rows
 
 #plot
 ggplot( det1rp, aes(x = distance, fill = sex)) +
@@ -112,7 +121,7 @@ det1wp <- det1 %>%
   dplyr::filter(., species == "WIPT")
 #view
 head(det1wp); dim(det1wp)
-#2879 rows
+#3048 rows
 
 #plot
 ggplot( det1wp, aes(x = distance, fill = sex)) +
@@ -127,7 +136,7 @@ det2rp <- det2 %>%
   dplyr::filter(., species == "ROPT")
 #view
 head(det2rp); dim(det2rp)
-#214 rows
+#218 rows
 
 #plot
 ggplot( det2rp, aes(x = distance, fill = sex)) +
@@ -142,7 +151,7 @@ det2wp <- det2 %>%
   dplyr::filter(., species == "WIPT")
 #view
 head(det2wp); dim(det2wp)
-#2433 rows
+#2559 rows
 
 #plot
 ggplot( det2wp, aes(x = distance, fill = sex)) +
