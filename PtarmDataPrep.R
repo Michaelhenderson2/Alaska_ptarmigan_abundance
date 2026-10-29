@@ -8,8 +8,8 @@ getwd()
 library( tidyverse ) 
 library( hms )
 ## end of package load ###############
-###################################################################
-#### Load or create data -----------------------------------------
+
+#### Load or Create Data -----------------------------------------
 # set path to where you can access your data #
 # Note that the path will be different for your.#
 datapath <- datadir <- paste( getwd(), "/Data/", sep = "" )
@@ -19,8 +19,8 @@ detdf <- read.csv( file = paste( datadir, "2026-07-23_all_prey_data.csv", sep = 
 #view
 head( detdf ); dim( detdf )
 ########## end of data load ################################
-#######################################################################
-######## clean data #############
+
+######## Clean Data #############
 #database has observations that are not ptarmigan. view all the species in the species column
 unique(detdf$species)
 
@@ -33,8 +33,9 @@ ptarmdetdf <- detdf %>%
 head(ptarmdetdf); dim(ptarmdetdf)
 #this removes 1767 rows 
 nrow( detdf ) - nrow(ptarmdetdf)
-  
-#lubridate to create day of year and time of day
+
+#############lubridate#############  
+#lubridate to create day of year and time of day (fixed effects for detection)
 #turn time column into all X:XX (since in the raw data some are XXX format)
 ptarmdetdf$time <- gsub(":", "", ptarmdetdf$time)
 ptarmdetdf$time <- sub("([0-9]{2})$", ":\\1", ptarmdetdf$time)
@@ -45,6 +46,7 @@ ptarmdetdf <- ptarmdetdf %>%
 #remove the date from time of day column (since it automatically puts today's date in)
 ptarmdetdf$time_of_day <- format(ptarmdetdf$time_of_day, "%I:%M")
 
+#####observer pairs########################33
 #Observer pairs will be a random intercept in our final model to account for differences in detection between pairs
 #make a column with each unique pair of observers
 ptarmdetdf$obsv_pair <- apply(ptarmdetdf[, c("observer1", "observer2")], 1, function(x) {
@@ -61,6 +63,7 @@ unique(ptarmdetdf$obsv_pair)
 #check for NAs just in case
 sum(is.na(ptarmdetdf$obsv_pair)) #0
 
+##################clean distances##########
 # In my initial data exploration, I discovered that the data in the distance row was character class instead of numeric class due to the inclusion of values such as "<100," ">1200," and "U". There were also one negative distance recorded (-99). My next cleaning step is to turn the column into numeric values and filter out the negative number and the NAs converted from the greater than, less than, and U values. 
 
 # First, check class of distance column
@@ -88,13 +91,13 @@ head(ptarmdetdf1); dim(ptarmdetdf1)
 #this removes 31 rows
 nrow( ptarmdetdf ) - nrow(ptarmdetdf1)
 
-#wide to long
+####################wide to long########
 cleandetdf <- pivot_longer(ptarmdetdf1, cols = c("males","females"), names_to = "sex", values_to = "count")
 #view
 head(cleandetdf); dim(cleandetdf)
 #10378 rows
 
-#filter out unknown sex birds
+########filter out unknown sex birds####
 cleandetdf1 <- cleandetdf %>%
   dplyr::filter(., count >= 1)
 #view
@@ -102,7 +105,7 @@ head(cleandetdf1); dim(cleandetdf1)
 #how many rows lost
 nrow( cleandetdf ) - nrow(cleandetdf1) #4650
 
-######## Data Summary ##########################
+######## data summary sex ##########################
 #how many males in original dataframe (just wipt and ropt round 1?)
 sum(ptarmdetdf1$males) #5200
 #how many females in original dataframe (just wipt and ropt round 1?)
@@ -114,7 +117,7 @@ sum(cleandetdf1$count) #6036. matches sum of previous two
 #how many individuals were unknown?
 sum(ptarmdetdf1$cluster_size) - sum(cleandetdf1$count) #720
 
-######## data visualization #############
+######## Data Visualization #############
 #create long dataframe where each row is 1 individual (there are no 0's in this)
 datvis <- ptarmdetdf1 %>%
   pivot_longer(
@@ -203,6 +206,7 @@ ggplot( det2wp, aes(x = distance, fill = sex)) +
   geom_histogram(binwidth = 50) +
   facet_wrap(~year, scales = "free_y")
 
+######just round 1#########
 #Just Round 1. Model we will use doesn't allow replicate surveys, and data for rounds 1 and 2 are similar enough proportionally, but round 1 has more data, so I will be using round 1 data only
 cleandetdfr1 <- cleandetdf1 %>%
   dplyr::filter(., round <= "1")
@@ -211,6 +215,7 @@ head(cleandetdfr1);dim(cleandetdfr1) #3081
 #how many rows lost?
 nrow(cleandetdf1) - nrow(cleandetdfr1) #2647
 
+####Data Summaries#########
 # Table of annual counts by species
 sum <- table(cleandetdfr1$species, cleandetdfr1$year )
 sum
@@ -245,6 +250,8 @@ head(cleandetdf2); dim(cleandetdf2) #3069
 #how many rows lost
 nrow( cleandetdfr1 ) - nrow(cleandetdf2) #12
 
+###########More Data Summary and Cleaning#######
+
 #sum again
 sum1 <- table(cleandetdf2$species, cleandetdf2$year )
 sum1
@@ -274,7 +281,7 @@ sumw1
 ############Just Males#########################
 maleropt <- ropt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
-  dplyr::select(., -cluster_size) #clustersize column is not needed anymore
+  dplyr::select(., year, transect, distance, jday, time_of_day, obsv_pair, count) #remove any unnecessary columns
 #view
 head(maleropt); dim(maleropt) #177
 
@@ -283,7 +290,7 @@ sum(ropt1$sex == "males") #177
 
 malewipt <- wipt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
-  dplyr::select(., -cluster_size) #clustersize column is not needed anymore
+  dplyr::select(., year, transect, distance, jday, time_of_day, obsv_pair, count) #remove any unnecessary columns
 #view
 head(malewipt); dim(malewipt) #2465
 
@@ -306,7 +313,7 @@ sum(wipt1$sex == "males") #2465
 #wipt1 and ropt1 = data for each species from cleandetdf2
 #malewipt and maleropt = just males from ropt1 and wipt1
 
-################################################################
+
 ##########    save relevant data and workspaces     ###########
 # full cleaned data:
 write.csv( cleandetdf2, paste( getwd(),"/Data/ptarmclean.csv", sep = "" ),  
