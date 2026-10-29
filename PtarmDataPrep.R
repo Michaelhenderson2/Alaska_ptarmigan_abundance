@@ -6,6 +6,7 @@ getwd()
 
 # load packages:
 library( tidyverse ) 
+library( hms )
 ## end of package load ###############
 ###################################################################
 #### Load or create data -----------------------------------------
@@ -32,6 +33,17 @@ ptarmdetdf <- detdf %>%
 head(ptarmdetdf); dim(ptarmdetdf)
 #this removes 1767 rows 
 nrow( detdf ) - nrow(ptarmdetdf)
+  
+#lubridate to create day of year and time of day
+#turn time column into all X:XX (since in the raw data some are XXX format)
+ptarmdetdf$time <- gsub(":", "", ptarmdetdf$time)
+ptarmdetdf$time <- sub("([0-9]{2})$", ":\\1", ptarmdetdf$time)
+#time of day and day of year
+ptarmdetdf <- ptarmdetdf %>% 
+  mutate(jday = lubridate::yday(mdy(date)),
+         time_of_day = as.POSIXct(time, format = "%I:%M"))
+#remove the date from time of day column (since it automatically puts today's date in)
+ptarmdetdf$time_of_day <- format(ptarmdetdf$time_of_day, "%I:%M")
 
 #Observer pairs will be a random intercept in our final model to account for differences in detection between pairs
 #make a column with each unique pair of observers
@@ -90,6 +102,18 @@ head(cleandetdf1); dim(cleandetdf1)
 #how many rows lost
 nrow( cleandetdf ) - nrow(cleandetdf1) #4650
 
+######## Data Summary ##########################
+#how many males in original dataframe (just wipt and ropt round 1?)
+sum(ptarmdetdf1$males) #5200
+#how many females in original dataframe (just wipt and ropt round 1?)
+sum(ptarmdetdf1$females) #836
+#how many individuals were originally counted in round 1?
+sum(ptarmdetdf1$cluster_size)#6756
+#how many individuals in cleaned dataframe with unknowns filtered out?
+sum(cleandetdf1$count) #6036. matches sum of previous two
+#how many individuals were unknown?
+sum(ptarmdetdf1$cluster_size) - sum(cleandetdf1$count) #720
+
 ######## data visualization #############
 #create long dataframe where each row is 1 individual (there are no 0's in this)
 datvis <- ptarmdetdf1 %>%
@@ -100,7 +124,9 @@ datvis <- ptarmdetdf1 %>%
   ) %>% #turns long and creates column for sex and "n" which is the number of rows that will be needed.
   uncount(n) #expand the rows based on n
 #view
-head(datvis); dim(datvis) #6036 rows = matches sum of males and females in original dataset
+head(datvis); dim(datvis) #6036 rows 
+#matches sum of males and females in dataset with unknown sex filtered out?
+sum(cleandetdf1$count) #6036 individuals
 
 ## Create dataframes for each round
 #just round 1 surveys
@@ -177,34 +203,30 @@ ggplot( det2wp, aes(x = distance, fill = sex)) +
   geom_histogram(binwidth = 50) +
   facet_wrap(~year, scales = "free_y")
 
-######## Data Summary ##########################
-#how many males in original dataframe (just wipt and ropt?)
-sum(ptarmdetdf1$males) #5200
-#how many females in original dataframe (just wipt and ropt?)
-sum(ptarmdetdf1$females) #836
-#how many individuals were originally counted?
-sum(ptarmdetdf1$cluster_size)#6756
-#how many individuals in cleaned dataframe with unknowns filtered out?
-sum(cleandetdf1$count) #6036. matches sum of previous two
-#how many individuals were unknown?
-sum(ptarmdetdf1$cluster_size) - sum(cleandetdf1$count) #720
+#Just Round 1. Model we will use doesn't allow replicate surveys, and data for rounds 1 and 2 are similar enough proportionally, but round 1 has more data, so I will be using round 1 data only
+cleandetdfr1 <- cleandetdf1 %>%
+  dplyr::filter(., round <= "1")
+#view
+head(cleandetdfr1);dim(cleandetdfr1) #3081
+#how many rows lost?
+nrow(cleandetdf1) - nrow(cleandetdfr1) #2647
 
 # Table of annual counts by species
-sum <- table(cleandetdf1$species, cleandetdf1$year )
+sum <- table(cleandetdfr1$species, cleandetdfr1$year )
 sum
 
 #dataframe for each species to get counts by sex
 #just WIPT
-wipt <- cleandetdf1 %>%
+wipt <- cleandetdfr1 %>%
   dplyr::filter(., species == "WIPT" )
 #view
-head(wipt); dim(wipt) #5312 
+head(wipt); dim(wipt) #2879 
 
 #just ROPT
-ropt <- cleandetdf1 %>%
+ropt <- cleandetdfr1 %>%
   dplyr::filter(., species == "ROPT" )
 #view
-head(ropt); dim(ropt) #416 
+head(ropt); dim(ropt) #202 
 
 #count by sex by species for ropt
 sumr <- table(ropt$sex, ropt$year )
@@ -215,12 +237,13 @@ sumw <- table(wipt$sex, wipt$year )
 sumw
 
 ########## Truncate to 500 m ######################
-cleandetdf2 <- cleandetdf1 %>%
+cleandetdf2 <- cleandetdfr1 %>%
   dplyr::filter(., distance <= 500)
+
 #view
-head(cleandetdf2); dim(cleandetdf2) #5700
+head(cleandetdf2); dim(cleandetdf2) #3069
 #how many rows lost
-nrow( cleandetdf1 ) - nrow(cleandetdf2) #28
+nrow( cleandetdfr1 ) - nrow(cleandetdf2) #12
 
 #sum again
 sum1 <- table(cleandetdf2$species, cleandetdf2$year )
@@ -231,13 +254,13 @@ sum1
 wipt1 <- cleandetdf2 %>%
   dplyr::filter(., species == "WIPT" )
 #view
-head(wipt1); dim(wipt1) #5286 
+head(wipt1); dim(wipt1) #2867
 
 #just ROPT
 ropt1 <- cleandetdf2 %>%
   dplyr::filter(., species == "ROPT" )
 #view
-head(ropt1); dim(ropt1) #414 
+head(ropt1); dim(ropt1) #202 
 
 #count by sex by species for ropt
 sumr1 <- table(ropt1$sex, ropt1$year )
@@ -253,30 +276,31 @@ maleropt <- ropt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
   dplyr::select(., -cluster_size) #clustersize column is not needed anymore
 #view
-head(maleropt); dim(maleropt) #355
+head(maleropt); dim(maleropt) #177
 
 #does this match?
-sum(ropt1$sex == "males") #355
+sum(ropt1$sex == "males") #177
 
 malewipt <- wipt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
   dplyr::select(., -cluster_size) #clustersize column is not needed anymore
 #view
-head(malewipt); dim(malewipt) #4519
+head(malewipt); dim(malewipt) #2465
 
 #does this match?
-sum(wipt1$sex == "males") #4519
+sum(wipt1$sex == "males") #2465
 
 ##########Legend: Define Objects##############
 ### All the cleaning I did made for a lot of objects that can't be understood intrisically. Here is a legend:
 #detdf = raw data
 #ptarmdetdf = selected relevant columns and removed any observations that aren't willow or rock ptarm
-#ptarmdetdf1 = removed all rows with weird distance stuff (ie <100, U, -99)
+#ptarmdetdf1 = removed all rows with weird distance stuff (ie <100, U, -99) and removed round 2
 #cleandetdf = pivoted wide to long 
 #cleandetdf1 = removed unknown sex birds
 #datavis = each row is an individual, no unknown sex birds, just for data visualization
 #det1 and det2 = round 1 and round 2 data parsed out from datavis
 #det1rp, det1wp, det2rp, det2wp = round 1 and round 2 data split by species for visualization
+#cleandetdfr1 = just round 1 from cleandetdf1
 #wipt and ropt = data for each species from cleandetdf1
 #cleandetdf2 = cleandetdf1 truncated to 500m
 #wipt1 and ropt1 = data for each species from cleandetdf2
