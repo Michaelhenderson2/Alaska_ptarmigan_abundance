@@ -9,6 +9,9 @@ library( tidyverse )
 library( hms )
 ## end of package load ###############
 
+#####Load Rdata if needed############
+load ("PtarmPrep.RData")
+
 #### Load or Create Data -----------------------------------------
 # set path to where you can access your data #
 # Note that the path will be different for your.#
@@ -16,8 +19,13 @@ datapath <- datadir <- paste( getwd(), "/Data/", sep = "" )
 # load ptarmigan raw detection data
 detdf <- read.csv( file = paste( datadir, "2026-07-23_all_prey_data.csv", sep = ""),
                    header = TRUE )
+surveydf <- read.csv( file = paste( datadir, "2026-07-21_survey_level_data.csv", sep = ""),
+                   header = TRUE )
 #view
 head( detdf ); dim( detdf )
+
+head( surveydf ); dim( surveydf )
+
 ########## end of data load ################################
 
 ######## Clean Data #############
@@ -33,6 +41,16 @@ ptarmdetdf <- detdf %>%
 head(ptarmdetdf); dim(ptarmdetdf)
 #this removes 1767 rows 
 nrow( detdf ) - nrow(ptarmdetdf)
+
+#######append survey level data############
+###we want transect start time from that data
+timedf<-surveydf%>% 
+  dplyr::select(transect, start_time, year, round)
+
+head( timedf ); dim(timedf )
+
+ptarmdetdf1 <- left_join(ptarmdetdf, timedf, by = c("transect", "year", "round")) #why does this add 200 observations?
+
 
 #############lubridate#############  
 #lubridate to create day of year and time of day (fixed effects for detection)
@@ -297,6 +315,21 @@ head(malewipt); dim(malewipt) #2465
 #does this match?
 sum(wipt1$sex == "males") #2465
 
+###########Bin Data####################
+#create a new column with distance class each row falls into so I can pivot by that column and the counts
+interval.width <- 50 #bin width, would be 50 for us
+strip.width <- max(malewipt$distance) #distance of one side of transect. Can set it to max of distance column (should be 500)
+strip.width #500
+
+nbins <- strip.width%/%interval.width #number of bins
+nbins #10
+
+xbin<-(malewipt$distance%/%interval.width+1)*interval.width #x being distance column. may have to use Mike's thing so each distance is one bird
+xbin #now we have a list of the distance class of each row (where 1 = 50, 2 = 100, etc)
+
+malewipt <- malewipt %>%
+  mutate(distance_bins = xbin)
+
 ##########Legend: Define Objects##############
 ### All the cleaning I did made for a lot of objects that can't be understood intrisically. Here is a legend:
 #detdf = raw data
@@ -330,6 +363,5 @@ write.csv( maleropt, paste( getwd(),"/Data/maleropt.csv", sep = "" ),
 #save workspace
 save.image( "PtarmPrep.RData" )
 ########## End of saving section ##################################
-################## Save your data and workspace ###################
 
 ############# END OF SCRIPT ########################################
