@@ -24,7 +24,7 @@ surveydf <- read.csv( file = paste( datadir, "2026-07-21_survey_level_data.csv",
 #view
 head( detdf ); dim( detdf )
 
-head( surveydf ); dim( surveydf )
+head( surveydf ); dim( surveydf ) #306 rows
 
 ########## end of data load ################################
 
@@ -42,27 +42,25 @@ head(ptarmdetdf); dim(ptarmdetdf)
 #this removes 1767 rows 
 nrow( detdf ) - nrow(ptarmdetdf)
 
-#######append survey level data############
-###we want transect start time from that data
-timedf<-surveydf%>% 
-  dplyr::select(transect, start_time, year, round)
+#######Covariates############
+###we want transect start time, transect, year, date
+covdf<-surveydf %>% 
+  dplyr::select(transect, start_time, year, round, date) %>%
+  dplyr::filter(., round == "1" ) #since we are keeping round 1 only
 
-head( timedf ); dim(timedf )
-
-ptarmdetdf1 <- left_join(ptarmdetdf, timedf, by = c("transect", "year", "round")) #why does this add 200 observations?
-
+head( covdf ); dim( covdf ) #154 rows
 
 #############lubridate#############  
 #lubridate to create day of year and time of day (fixed effects for detection)
 #turn time column into all X:XX (since in the raw data some are XXX format)
-ptarmdetdf$time <- gsub(":", "", ptarmdetdf$time)
-ptarmdetdf$time <- sub("([0-9]{2})$", ":\\1", ptarmdetdf$time)
+#covdf$time <- gsub(":", "", covdf$time)
+#covdf$start_time <- sub("([0-9]{2})$", ":\\1", covdf$start_time)
 #time of day and day of year
-ptarmdetdf <- ptarmdetdf %>% 
+covdf <- covdf %>% 
   mutate(jday = lubridate::yday(mdy(date)),
-         time_of_day = as.POSIXct(time, format = "%I:%M"))
+         time_of_day = as.POSIXct(start_time, format = "%I:%M"))
 #remove the date from time of day column (since it automatically puts today's date in)
-ptarmdetdf$time_of_day <- format(ptarmdetdf$time_of_day, "%I:%M")
+covdf$time_of_day <- format(covdf$time_of_day, "%I:%M")
 
 #####observer pairs########################33
 #Observer pairs will be a random intercept in our final model to account for differences in detection between pairs
@@ -143,7 +141,8 @@ datvis <- ptarmdetdf1 %>%
     names_to = "sex",
     values_to = "n"
   ) %>% #turns long and creates column for sex and "n" which is the number of rows that will be needed.
-  uncount(n) #expand the rows based on n
+  uncount(n) %>% #expand the rows based on n
+  mutate(count = 1)
 #view
 head(datvis); dim(datvis) #6036 rows 
 #matches sum of males and females in dataset with unknown sex filtered out?
@@ -299,7 +298,7 @@ sumw1
 ############Just Males#########################
 maleropt <- ropt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
-  dplyr::select(., year, transect, distance, jday, time_of_day, obsv_pair, count) #remove any unnecessary columns
+  dplyr::select(., year, transect, date, distance, obsv_pair, count) #remove any unnecessary columns
 #view
 head(maleropt); dim(maleropt) #177
 
@@ -308,7 +307,7 @@ sum(ropt1$sex == "males") #177
 
 malewipt <- wipt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
-  dplyr::select(., year, transect, distance, jday, time_of_day, obsv_pair, count) #remove any unnecessary columns
+  dplyr::select(., year, transect, date, distance, obsv_pair, count) #remove any unnecessary columns
 #view
 head(malewipt); dim(malewipt) #2465
 
@@ -324,11 +323,20 @@ strip.width #500
 nbins <- strip.width%/%interval.width #number of bins
 nbins #10
 
-xbin<-(malewipt$distance%/%interval.width+1)*interval.width #x being distance column. may have to use Mike's thing so each distance is one bird
-xbin #now we have a list of the distance class of each row (where 1 = 50, 2 = 100, etc)
+xbin<-(malewipt$distance%/%interval.width+1)*interval.width #may have to use Mike's thing so each distance is one bird
+xbin #now we have a list of the distance class of each row 
 
+#add as a column
 malewipt <- malewipt %>%
   mutate(distance_bins = xbin)
+
+#repeat for ropt
+xbin2<-(maleropt$distance%/%interval.width+1)*interval.width #may have to use Mike's thing so each distance is one bird
+xbin2 #now we have a list of the distance class of each row 
+
+#add as a column
+maleropt <- maleropt %>%
+  mutate(distance_bins = xbin2)
 
 ##########Legend: Define Objects##############
 ### All the cleaning I did made for a lot of objects that can't be understood intrisically. Here is a legend:
