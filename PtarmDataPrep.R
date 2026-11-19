@@ -55,15 +55,21 @@ covdf %>%
   group_by(transect, year) %>% 
   filter(n()>1)
 
-#there are 4 transects surveyed twice in a given year. These were surveys where the full transect couldn't be completed in one day but was completed the second. Thus, I will change the second date to match the first
+#there are 4 transects surveyed twice in a given year. These were surveys where the full transect couldn't be completed in one day but was completed the second. Thus, I will change the second date and time to match the first
 covdf <- covdf %>% 
   group_by(transect, year) %>% 
-  mutate(date = first(date))
+  mutate(date = first(date))  %>% 
+  mutate(start_time = first(start_time))
 
 #check to see if it worked
 covdf %>% 
   group_by(transect, year) %>% 
   filter(n()>1)
+
+#remove duplicates
+covdf <- covdf[!duplicated(covdf),]
+
+dim(covdf) #removed 4, so we're good
 
 #############lubridate#############  
 #lubridate to create day of year and time of day (fixed effects for detection)
@@ -367,6 +373,8 @@ xbin2 #now we have a list of the distance class of each row
 #add as a column
 maleropt <- maleropt %>%
   mutate(distance_bins = xbin2)
+
+##NOTE: largest distances (300 and 500) are in the 350 and 500 distance bins
 
 ##########Legend: Define Objects##############
 ### All the cleaning I did made for a lot of objects that can't be understood intrisically. Here is a legend:
