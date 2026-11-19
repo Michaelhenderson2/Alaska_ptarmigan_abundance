@@ -15,7 +15,7 @@ load ("PtarmPrep.RData")
 #### Load or Create Data -----------------------------------------
 # set path to where you can access your data #
 # Note that the path will be different for your.#
-datapath <- datadir <- paste( getwd(), "/Data/", sep = "" )
+datadir <- paste( getwd(), "/Data/", sep = "" )
 # load ptarmigan raw detection data
 detdf <- read.csv( file = paste( datadir, "2026-07-23_all_prey_data.csv", sep = ""),
                    header = TRUE )
@@ -50,6 +50,21 @@ covdf<-surveydf %>%
 
 head( covdf ); dim( covdf ) #154 rows
 
+#look for duplicate dates for transects
+covdf %>% 
+  group_by(transect, year) %>% 
+  filter(n()>1)
+
+#there are 4 transects surveyed twice in a given year. These were surveys where the full transect couldn't be completed in one day but was completed the second. Thus, I will change the second date to match the first
+covdf <- covdf %>% 
+  group_by(transect, year) %>% 
+  mutate(date = first(date))
+
+#check to see if it worked
+covdf %>% 
+  group_by(transect, year) %>% 
+  filter(n()>1)
+
 #############lubridate#############  
 #lubridate to create day of year and time of day (fixed effects for detection)
 #turn time column into all X:XX (since in the raw data some are XXX format)
@@ -58,9 +73,16 @@ head( covdf ); dim( covdf ) #154 rows
 #time of day and day of year
 covdf <- covdf %>% 
   mutate(jday = lubridate::yday(mdy(date)),
-         time_of_day = as.POSIXct(start_time, format = "%I:%M"))
+         jtime = as.POSIXct(start_time, format = "%I:%M"))
 #remove the date from time of day column (since it automatically puts today's date in)
-covdf$time_of_day <- format(covdf$time_of_day, "%I:%M")
+#covdf$time_of_day <- format(covdf$time_of_day, "%I:%M")
+
+#time of day -> min from earliest survey time
+#what's the earliest start time?
+unique(sort(covdf$jtime))
+#5:35 is the earliest start time, so we will create a time of day column that has minutes from 5 am
+
+covdf$jtime <- lubridate::minute(covdf$jtime) + 60*lubridate::hour(covdf$jtime) - 300
 
 #####observer pairs########################33
 #Observer pairs will be a random intercept in our final model to account for differences in detection between pairs
@@ -305,6 +327,13 @@ head(maleropt); dim(maleropt) #177
 #does this match?
 sum(ropt1$sex == "males") #177
 
+#based on histograms, we are additionally truncating ropt males to 300 m
+maleropt <- maleropt %>%
+  dplyr::filter(., distance <= 300)
+
+#view
+head(maleropt); dim(maleropt) #161, so we've lost 16 
+
 malewipt <- wipt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
   dplyr::select(., year, transect, date, distance, obsv_pair, count) #remove any unnecessary columns
@@ -316,8 +345,9 @@ sum(wipt1$sex == "males") #2465
 
 ###########Bin Data####################
 #create a new column with distance class each row falls into so I can pivot by that column and the counts
-interval.width <- 50 #bin width, would be 50 for us
+interval.width <- 50 #bin width, would be 50 for us. keeping at 50 even for ropt males
 strip.width <- max(malewipt$distance) #distance of one side of transect. Can set it to max of distance column (should be 500)
+
 strip.width #500
 
 nbins <- strip.width%/%interval.width #number of bins
@@ -340,7 +370,9 @@ maleropt <- maleropt %>%
 
 ##########Legend: Define Objects##############
 ### All the cleaning I did made for a lot of objects that can't be understood intrisically. Here is a legend:
-#detdf = raw data
+#detdf = raw data counts
+#surveydf = raw survey level data
+#covdf = cleaned survey level data (transect, date, jday, time of day for start time, year) for round 1
 #ptarmdetdf = selected relevant columns and removed any observations that aren't willow or rock ptarm
 #ptarmdetdf1 = removed all rows with weird distance stuff (ie <100, U, -99) and removed round 2
 #cleandetdf = pivoted wide to long 
@@ -352,24 +384,24 @@ maleropt <- maleropt %>%
 #wipt and ropt = data for each species from cleandetdf1
 #cleandetdf2 = cleandetdf1 truncated to 500m
 #wipt1 and ropt1 = data for each species from cleandetdf2
-#malewipt and maleropt = just males from ropt1 and wipt1
+#malewipt and maleropt = just males from ropt1 and wipt1. includes observerpair data
 
+#what we need for the analysis script: malewipt, maleropt, covdf
+#SAVE THESE FOR NEXT TIME, DONT USE THE RDATA
 
 ##########    save relevant data and workspaces     ###########
-# full cleaned data:
-write.csv( cleandetdf2, paste( getwd(),"/Data/ptarmclean.csv", sep = "" ),  
-           row.names = FALSE )
-
-# cleaned willow ptarm just males
-write.csv( malewipt, paste( getwd(),"/Data/malewipt.csv", sep = "" ),  
-           row.names = FALSE )
-
-#cleaned rock ptarm just males
-write.csv( maleropt, paste( getwd(),"/Data/maleropt.csv", sep = "" ),  
-           row.names = FALSE )
 
 #save workspace
 save.image( "PtarmPrep.RData" )
+
+#save cleaned datasets
+write.csv( malewipt, paste( getwd(),"/Data/male_wipt.csv", sep = "" ),  
+           row.names = FALSE )
+write.csv( maleropt, paste( getwd(),"/Data/male_ropt.csv", sep = "" ),  
+           row.names = FALSE )
+write.csv( covdf, paste( getwd(),"/Data/site_covariates.csv", sep = "" ),  
+           row.names = FALSE )
+
 ########## End of saving section ##################################
 
 ############# END OF SCRIPT ########################################
