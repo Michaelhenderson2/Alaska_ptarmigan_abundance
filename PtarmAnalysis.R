@@ -40,38 +40,122 @@ head( covdf ); dim( covdf ) #150 rows
 #mwiptlong[is.na(mwiptlong$count), ] #ignore this was checking for NAs
 #we're going to do wipt male first because ropt male might not have enough data
 
+#create your response dataframe:
+#sum counts for each distance bin by class by year in prep of turning it into the right format
 mwipt <- mwiptlong %>% 
   group_by(transect, distance_bins, year) %>%
   mutate(bincount = sum(count)) %>%
-  select(transect, year, bincount, distance_bins) 
+  select(transect, year, bincount, distance_bins, obsv_pair) #we don't need the other columns for the response variable
   
+#remove duplicate rows 
 mwipt <- mwipt[!duplicated(mwipt),]
 
+##double check
+#did observer pairs get dropped?
+sort(unique(mwiptlong$obsv_pair)) #11 pairs
+sort(unique(mwipt$obsv_pair)) #no
+
+#make sure we didn't drop counts on accident
 sum(mwiptlong$count)
 sum(mwipt$bincount)
 
+#make it so there's a count in each distance bin for each transectxyear
 yy <- mwipt %>%  
+  select(-obsv_pair) %>%
   pivot_wider( names_from = distance_bins, #which criteria is getting turned to wide
-               values_from = c("bincount"), #what columns do we include
-               )
+               values_from = c("bincount")) %>% #what columns do we include
+  mutate(across(where(is.numeric), ~replace_na(.,0))) #replace NAs with 0s
+#check did we get the right number of dimensions?
+head( yy ); dim( yy )
+#double checking that no counts were dropped
+sum(yy[,3:13]) #still 2627 total ptarms
 
+#sort by increasing distance bins
+yy <- yy %>% dplyr::select( str_sort( colnames(yy[,3:13]), numeric = TRUE ) ) 
+
+#final dataframe format
 yyy <- yy %>%  
   pivot_wider( names_from = year, #which criteria is getting turned to wide
                values_from = c("50", "100", "150", "200", "250", "300", "350", "400", "450", "500", "550"), #what columns do we include
-               names_glue = "{year}_{.value}") %>%  #new columns need to have year in name bc counts in this unmarked dataframe needs to be MxJT, M = site, JXT = year x survey
-  mutate(across(where(is.numeric), ~replace_na(.,0))) #replace NAs with 0s
+               #50 = 0-49, 100 = 50-99, etc. so 550 is for any distances with 500
+               names_glue = "{year}_{.value}") %>%  #new columns need to have year in name 
+  mutate(across(where(is.numeric), ~replace_na(.,0))) %>%  #replace NAs with 0s
+  ungroup() #because we grouped earlier to sum counts, we have to ungroup in order to remove a column used as grouping criteria
 
-##OBSERVERPAIRS
+#double checking that no counts were dropped
+sum(yyy[,2:111]) #still 2627 total ptarms
+
+yyy<-yyy[order(yyy$transect), ]
+
+
+#check did we get the right number of dimensions?
+head( yyy ); dim( yyy )
+
+###### Remove rows from transectxyears lost to truncation ######
+
+#I need to remove any year/transect pairs that were tossed when we truncated
+ff <- data.frame(transectyear = unique(paste(mwipt$year, mwipt$transect)))
+
+trunccov <- covdf %>%
+  mutate(transectyear = paste(year, transect))
+
+trunccov <- trunccov[(trunccov$transectyear %in% ff$transectyear),]
+
+######## Observer level cov (observer-pair) #############
+
+#create observer level dataframes
+obsvp <- trunccov %>%  
+  select( transect, year, obsv_pair ) %>% 
+  pivot_wider( names_from = year, #which criteria is getting turned to wide
+               values_from = c("obsv_pair")) %>% 
+  ungroup() #because we grouped earlier to sum counts, we have to ungroup in order to remove a column used as grouping criteria 
+
+obsvp<-obsvp[order(obsvp$transect), ]
+
+head( obsvp ); dim( obsvp ) #this is meant to be a random intercept in the final model, so this might not even be the right format
 
 ############## site level cov in site (transect) by year dataframes #######
-jtime <- covdf %>%
+
+jtime <- trunccov %>%
   select(transect, year, jtime) %>%
   spread(key = year, value = jtime)
 
-jday <- covdf %>%
-  select(transect, year, jday) %>%
-  spread(key = year, value = jday)
+head( jtime ); dim( jtime )
 
+jday <- trunccov %>%
+  select(transect, year, jday) %>%
+  spread(key = year, value = jday) 
+
+head( jday ); dim( jday )
+
+#lastly calculate number of primary periods
+T <- length( unique( mwiptlong$year ) )
+T #10
+
+### can't put site names in unmarked dataset ###
+##Checked to make sure sites were ordered the same way for all of them (alphabetically, so Cs, then Ks, then Ts)
+#Now remove transect column in each dataframe
+yyy <- yyy %>% 
+  select( -transect )
+
+obsvp <- obsvp %>% 
+  select(-transect) 
+
+jtime <- jtime %>% 
+  select( -transect )
+
+jday <- jday %>% 
+  select(-transect) 
+
+#NEED:
+#dist.breaks:vector of distance cut-points delimiting the distance classes. It must be of length J+1.
+#tlength: A vector of length R containing the transect lengths. (all 10 mi)
+##Need to figure out what the above two actually look like
+#then figure out how to do single season with year as factor
+
+
+####### Scale site-level Covs #####################
+#we are scaling by 2 standard deviations following Gelman (2008) because I have both continuous and binary covariates
 
 #generic function to standardise covariates:
 standardise <- function( xmat, stdevs = 2, marg = c( 1, 2, 3 ) ) { 
@@ -81,9 +165,6 @@ standardise <- function( xmat, stdevs = 2, marg = c( 1, 2, 3 ) ) {
     ( x - mean.xmat ) / (stdevs * sd.xmat ) } )
   return( std.xmat )
 }
-
-####### Scale site-level Covs #####################
-#we are scaling by 2 standard deviations following Gelman (2008) because I have both continuous and binary covariates
 
 ##########    save relevant data and workspaces     ###########
 

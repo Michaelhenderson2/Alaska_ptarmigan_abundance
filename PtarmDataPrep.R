@@ -43,9 +43,9 @@ head(ptarmdetdf); dim(ptarmdetdf)
 nrow( detdf ) - nrow(ptarmdetdf)
 
 #######Covariates############
-###we want transect start time, transect, year, date
+###we want transect start time, transect, year, date, observers
 covdf<-surveydf %>% 
-  dplyr::select(transect, start_time, year, round, date) %>%
+  dplyr::select(transect, start_time, year, observer1, observer2, round, date) %>%
   dplyr::filter(., round == "1" ) #since we are keeping round 1 only
 
 head( covdf ); dim( covdf ) #154 rows
@@ -93,19 +93,19 @@ covdf$jtime <- lubridate::minute(covdf$jtime) + 60*lubridate::hour(covdf$jtime) 
 #####observer pairs########################33
 #Observer pairs will be a random intercept in our final model to account for differences in detection between pairs
 #make a column with each unique pair of observers
-ptarmdetdf$obsv_pair <- apply(ptarmdetdf[, c("observer1", "observer2")], 1, function(x) {
+covdf$obsv_pair <- apply(covdf[, c("observer1", "observer2")], 1, function(x) {
   last <- word(x, -1)
   tolower(paste(sort(last), collapse = "-"))
 })
 
 #view
-ptarmdetdf$obsv_pair
+covdf$obsv_pair
 
 #what are the unique observer pairs?
-unique(ptarmdetdf$obsv_pair)
+unique(covdf$obsv_pair)
 
 #check for NAs just in case
-sum(is.na(ptarmdetdf$obsv_pair)) #0
+sum(is.na(covdf$obsv_pair)) #0
 
 ##################clean distances##########
 # In my initial data exploration, I discovered that the data in the distance row was character class instead of numeric class due to the inclusion of values such as "<100," ">1200," and "U". There were also one negative distance recorded (-99). My next cleaning step is to turn the column into numeric values and filter out the negative number and the NAs converted from the greater than, less than, and U values. 
@@ -359,15 +359,18 @@ strip.width #500
 nbins <- strip.width%/%interval.width #number of bins
 nbins #10
 
-xbin<-(malewipt$distance%/%interval.width+1)*interval.width #may have to use Mike's thing so each distance is one bird
+xbin<-(malewipt$distance%/%interval.width+1)*interval.width
 xbin #now we have a list of the distance class of each row 
+
+#distance bins 
+sort(unique(xbin))
 
 #add as a column
 malewipt <- malewipt %>%
   mutate(distance_bins = xbin)
 
 #repeat for ropt
-xbin2<-(maleropt$distance%/%interval.width+1)*interval.width #may have to use Mike's thing so each distance is one bird
+xbin2<-(maleropt$distance%/%interval.width+1)*interval.width 
 xbin2 #now we have a list of the distance class of each row 
 
 #add as a column
