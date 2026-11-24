@@ -85,6 +85,7 @@ yyy <- yy %>%
 #double checking that no counts were dropped
 sum(yyy[,2:111]) #still 2627 total ptarms
 
+#order by transect so all data goes in the same order of sites
 yyy<-yyy[order(yyy$transect), ]
 
 
@@ -93,18 +94,18 @@ head( yyy ); dim( yyy )
 
 ###### Remove rows from transectxyears lost to truncation ###### IGNORE THIS
 
-#I need to remove any year/transect pairs that were tossed when we truncated
-#ff <- data.frame(transectyear = unique(paste(mwipt$year, mwipt$transect)))
+#I need to remove any year/transect pairs that were tossed when we cleaned
+ff <- data.frame(transectyear = unique(paste(mwipt$year, mwipt$transect)))
 
-#trunccov <- covdf %>%
-  #mutate(transectyear = paste(year, transect))
+trunccov <- covdf %>%
+  mutate(transectyear = paste(year, transect))
 
-#trunccov <- trunccov[(trunccov$transectyear %in% ff$transectyear),]
+trunccov <- trunccov[(trunccov$transectyear %in% ff$transectyear),]
 
 ######## Observer level cov (observer-pair) #############
 
 #create observer level dataframes
-obsvp <- covdf %>%  
+obsvp <- trunccov %>%  
   select( transect, year, obsv_pair ) %>% 
   pivot_wider( names_from = year, #which criteria is getting turned to wide
                values_from = c("obsv_pair")) %>% 
@@ -116,13 +117,13 @@ head( obsvp ); dim( obsvp ) #this is meant to be a random intercept in the final
 
 ############## site level cov in site (transect) by year dataframes #######
 #still are NAs because I guess some sites were not surveyed in certain years, but there are 0s for those cells in the yyy dataframe, so we'll see if that causes issues
-jtime <- covdf %>%
+jtime <- trunccov %>%
   select(transect, year, jtime) %>%
   spread(key = year, value = jtime)
 
 head( jtime ); dim( jtime )
 
-jday <- covdf %>%
+jday <- trunccov %>%
   select(transect, year, jday) %>%
   spread(key = year, value = jday) 
 
@@ -135,8 +136,10 @@ I <- length(unique(covdf$transect))
 I #16
 
 #If the time gap between primary periods is not constant, an M by T matrix of integers should be supplied using the primaryPeriod argument
-p <- as.integer(c(1,2,3,4,6,7,8,9,10,11))
+#didn't survey in 2020
+p <- as.integer(c(1,2,3,4,6,7,8,9,10,11)) #number for each year with 2020 skipped
 
+#turn into matrix with the above list repeated 16 times 
 primPer <- as.matrix(do.call("rbind", replicate(I, p, simplify = FALSE)))
 
 ###### can't put site names in unmarked dataset ######
