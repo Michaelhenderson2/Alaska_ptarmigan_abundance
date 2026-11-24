@@ -4,9 +4,12 @@ rm( list = ls() )
 # Check that you are in the right project folder
 getwd()
 
+install.packages( "lme4" )
+
 # load packages:
 library( tidyverse ) 
 library( unmarked ) #runs N-mixture models
+library(lme4)
 ## end of package load ###############
 
 #####Load Rdata if needed############
@@ -112,27 +115,29 @@ trunccov <- covdf[(covdf$transectyear %in% ff$transectyear),]
 dim(trunccov) #should be 130
 
 ######## Site level covs #############
+
+#observer pair
 obsvp <- trunccov  %>%  #considered site level for the purposes of class project
   select( transectyear, obsv_pair )
 
-dim(obsvp)
-
 obsvp<-obsvp[order(obsvp$transectyear), ]
-
 head( obsvp ); dim( obsvp ) #130 rows (sites)
 
+#time of day
 jtime <- trunccov %>%
   select(transectyear, jtime)
 
 jtime<-jtime[order(jtime$transectyear), ]
 head( jtime ); dim( jtime )
 
+#day of year
 jday <- trunccov %>%
   select(transectyear, jday)
 
 jday<-jday[order(jday$transectyear), ]
 head( jday ); dim( jday )
 
+#year
 year <- trunccov %>%
   select(transectyear, year)
 
@@ -140,6 +145,7 @@ dim(year) #matches data
 year<-year[order(year$transectyear), ]
 head( year ); dim( year )
 
+#transect
 transect <- trunccov %>%
   select(transectyear, transect)
 
@@ -205,15 +211,15 @@ summary( umf )
 ##### WIPT Model ##########
 
 #male wipt, half normal
-fm.whn <- distsamp(~1 + jtime + jday + obsv_pair + transect #detection
+fm.whn <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + transect #detection, observer pair as a random intercept
                    ~1 + as.factor(year), #abundance
                    data = umf,
                    keyfun = "halfnorm",
                    output = "abund")
-fm.whn #drops 76 sites, which actually makes sense cuz those are our NAs. Says we should try fewer covs.
+fm.whn #drops 76 sites
 
 #male wipt, hazard
-fm.wha <- distsamp(~1 + jtime + jday + obsv_pair + transect #detection
+fm.wha <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + transect #detection
                    ~1 + as.factor(year), #abundance
                    data = umf,
                    keyfun = "hazard",
@@ -293,8 +299,14 @@ rtrunccov <- covdf[(covdf$transectyear %in% rff$transectyear),]
 dim(rtrunccov) #should be 32
 
 ############## site level cov in site (transect) by year dataframes #######
+#observer pair
+robsvp <- rtrunccov  %>%  
+  select( transectyear, obsv_pair )
 
-#since we're really data poor, going to just use year and transect as site level cov
+robsvp<-robsvp[order(robsvp$transectyear), ]
+head(robsvp); dim(robsvp)
+
+#year
 ryear <- rtrunccov %>%
   select(transectyear, year)
 
@@ -302,6 +314,21 @@ dim(ryear) #matches data
 ryear<-ryear[order(ryear$transectyear), ]
 head( ryear ); dim( ryear )
 
+#time of day
+rjtime <- rtrunccov %>%
+  select(transectyear, jtime)
+
+rjtime<-rjtime[order(rjtime$transectyear), ]
+head( rjtime ); dim( rjtime )
+
+#day of year
+rjday <- rtrunccov %>%
+  select(transectyear, jday)
+
+rjday<-rjday[order(rjday$transectyear), ]
+head( rjday ); dim( rjday )
+
+#transect
 rtransect <- rtrunccov %>%
   select(transectyear, transect)
 
@@ -315,6 +342,15 @@ head( rtransect ); dim( rtransect )
 rr <- rr %>% 
   select( -transectyear, -transect, -year )
 
+robsvp <- robsvp %>% 
+  select( -transectyear )
+
+rjtime <- rjtime %>% 
+  select( -transectyear )
+
+rjday <- rjday %>% 
+  select(-transectyear) 
+
 ryear <- ryear %>% 
   select(-transectyear) 
 
@@ -324,12 +360,23 @@ rtransect <- rtransect %>%
 
 ##### Unmarked Dataframe ######
 umfr <- unmarkedFrameDS(y = as.matrix(rr),
-                       siteCovs = data.frame(ryear, rtransect), #gonna treat obsvp and transect as a site level cov for this project
+                       siteCovs = data.frame(ryear, rtransect, rjtime, rjday, robsvp), #gonna treat obsvp and transect as a site level cov for this project
                        dist.breaks = rdb, 
                        tlength = rep(16093, Ir), #10 mi transects, so 16093.44 m. 
                        survey = "line",
                        unitsIn = "m")
-#observer level covariates not allowed.
+
+#### Scale covs ######
+
+#now scale ecological predictors:
+#sc <- apply( siteCovs(umf), MARGIN = 2, FUN = scale )
+rsctime <- standardise( as.matrix(siteCovs(umfr)[,"jtime"]), 
+                       stdevs = 2, marg = 2 )
+rscday <- standardise( as.matrix(siteCovs(umfr)[,"jday"]), 
+                      stdevs = 2, marg = 2 )
+# We replace the predictors in our unmarked dataframe with the scaled values:
+siteCovs( umfr )[,c("jtime","jday") ] <- cbind(rsctime, rscday)
+
 
 # View summary of unmarked dataframe:
 summary( umfr ) 
@@ -337,7 +384,7 @@ summary( umfr )
 ##### ROPT Model ##########
 
 #male ropt, half normal
-fm.rhn <- distsamp(~1 + transect #detection
+fm.rhn <- distsamp(~1 + jtime + jday + transect + (1 | obsv_pair) #detection
                    ~1 + as.factor(year), #abundance
                    data = umfr,
                    keyfun = "halfnorm",
@@ -345,13 +392,18 @@ fm.rhn <- distsamp(~1 + transect #detection
 fm.rhn 
 
 #male ropt, hazard
-fm.rha <- distsamp(~1 + transect #detection
+fm.rha <- distsamp(~1 + jtime + jday + transect + (1 | obsv_pair) #detection
                    ~1 + as.factor(year), #abundance
                    data = umfr,
                    keyfun = "hazard",
                    output = "abund")
 fm.rha #took longer to converge (like a minute or two)
 
+##### ALL MODELS #####
+fm.whn #wipt male half normal
+fm.wha #wipt male hazard
+fm.rhn #ropt male half normal
+fm.rha #ropt male hazard
 
 ##########    save relevant data and workspaces     ###########
 
