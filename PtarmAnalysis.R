@@ -53,7 +53,7 @@ mwipt <- mwipt[!duplicated(mwipt),]
 ##double check
 #did observer pairs get dropped?
 sort(unique(mwiptlong$obsv_pair)) #11 pairs
-sort(unique(mwipt$obsv_pair)) #no
+sort(unique(mwipt$obsv_pair)) #none dropped
 
 #make sure we didn't drop counts on accident
 sum(mwiptlong$count)
@@ -91,20 +91,20 @@ yyy<-yyy[order(yyy$transect), ]
 #check did we get the right number of dimensions?
 head( yyy ); dim( yyy )
 
-###### Remove rows from transectxyears lost to truncation ######
+###### Remove rows from transectxyears lost to truncation ###### IGNORE THIS
 
 #I need to remove any year/transect pairs that were tossed when we truncated
-ff <- data.frame(transectyear = unique(paste(mwipt$year, mwipt$transect)))
+#ff <- data.frame(transectyear = unique(paste(mwipt$year, mwipt$transect)))
 
-trunccov <- covdf %>%
-  mutate(transectyear = paste(year, transect))
+#trunccov <- covdf %>%
+  #mutate(transectyear = paste(year, transect))
 
-trunccov <- trunccov[(trunccov$transectyear %in% ff$transectyear),]
+#trunccov <- trunccov[(trunccov$transectyear %in% ff$transectyear),]
 
 ######## Observer level cov (observer-pair) #############
 
 #create observer level dataframes
-obsvp <- trunccov %>%  
+obsvp <- covdf %>%  
   select( transect, year, obsv_pair ) %>% 
   pivot_wider( names_from = year, #which criteria is getting turned to wide
                values_from = c("obsv_pair")) %>% 
@@ -115,14 +115,14 @@ obsvp<-obsvp[order(obsvp$transect), ]
 head( obsvp ); dim( obsvp ) #this is meant to be a random intercept in the final model, so this might not even be the right format
 
 ############## site level cov in site (transect) by year dataframes #######
-
-jtime <- trunccov %>%
+#still are NAs because I guess some sites were not surveyed in certain years, but there are 0s for those cells in the yyy dataframe, so we'll see if that causes issues
+jtime <- covdf %>%
   select(transect, year, jtime) %>%
   spread(key = year, value = jtime)
 
 head( jtime ); dim( jtime )
 
-jday <- trunccov %>%
+jday <- covdf %>%
   select(transect, year, jday) %>%
   spread(key = year, value = jday) 
 
@@ -131,8 +131,15 @@ head( jday ); dim( jday )
 #lastly calculate number of primary periods
 T <- length( unique( mwiptlong$year ) )
 T #10
+I <- length(unique(covdf$transect))
+I #16
 
-### can't put site names in unmarked dataset ###
+#If the time gap between primary periods is not constant, an M by T matrix of integers should be supplied using the primaryPeriod argument
+p <- as.integer(c(1,2,3,4,6,7,8,9,10,11))
+
+primPer <- as.matrix(do.call("rbind", replicate(I, p, simplify = FALSE)))
+
+###### can't put site names in unmarked dataset ######
 ##Checked to make sure sites were ordered the same way for all of them (alphabetically, so Cs, then Ks, then Ts)
 #Now remove transect column in each dataframe
 yyy <- yyy %>% 
@@ -147,24 +154,46 @@ jtime <- jtime %>%
 jday <- jday %>% 
   select(-transect) 
 
-#NEED:
-#dist.breaks:vector of distance cut-points delimiting the distance classes. It must be of length J+1.
-#tlength: A vector of length R containing the transect lengths. (all 10 mi)
-##Need to figure out what the above two actually look like
-#then figure out how to do single season with year as factor
+##### Unmarked Dataframe ######
+
+umf <- unmarkedFrameDSO(y = as.matrix(yyy),
+                        yearlySiteCovs = list(jtime = jtime,
+                                              jday = jday),
+                        numPrimary = T,
+                        primaryPeriod = primPer,
+                        dist.breaks = c(50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600), #needs to have number of breaks + 1
+                        tlength = rep(16093, I), #10 mi transects, so 16093.44 m. 16 transects
+                        survey = "line",
+                        unitsIn = "m")
+#observer level covariates not allowed. We will try to do random intercepts for our observer pairs
+
+# View summary of unmarked dataframe:
+summary( umf ) 
 
 
 ####### Scale site-level Covs #####################
-#we are scaling by 2 standard deviations following Gelman (2008) because I have both continuous and binary covariates
+#wait are we scaling by 1 or 2 sd? I'll scale by 1 for now but with the custom function scale by 1 sd and can change if needed.
 
-#generic function to standardise covariates:
-standardise <- function( xmat, stdevs = 2, marg = c( 1, 2, 3 ) ) { 
+#generic function to standardise covariates (for 2 sd):
+standardise <- function( xmat, stdevs = 1, marg = c( 1, 2, 3 ) ) { 
   mean.xmat = mean( as.vector( xmat ), na.rm = TRUE )
   sd.xmat = sd( as.vector( xmat ), na.rm = TRUE ) 
   std.xmat = apply( xmat, marg, function( x ){
     ( x - mean.xmat ) / (stdevs * sd.xmat ) } )
   return( std.xmat )
 }
+
+#now scale ecological predictors:
+#sc <- apply( siteCovs(umf), MARGIN = 2, FUN = scale )
+sctime <- standardise( as.matrix(yearlySiteCovs(umf)[,"jtime"]), 
+                       stdevs = 1, marg = 2 )
+scday <- standardise( as.matrix(yearlySiteCovs(umf)[,"jday"]), 
+                        stdevs = 1, marg = 2 )
+# We replace the predictors in our unmarked dataframe with the scaled values:
+yearlySiteCovs( umf )[,c("jtime","jday") ] <- cbind(sctime, scday)
+
+##### Model ##########
+#obsv pairs as random intercepts in final model
 
 ##########    save relevant data and workspaces     ###########
 
