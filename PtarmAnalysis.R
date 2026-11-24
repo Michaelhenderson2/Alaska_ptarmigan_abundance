@@ -45,15 +45,10 @@ head( covdf ); dim( covdf ) #150 rows
 mwipt <- mwiptlong %>% 
   group_by(transect, distance_bins, year) %>%
   mutate(bincount = sum(count)) %>%
-  select(transect, year, bincount, distance_bins, obsv_pair) #we don't need the other columns for the response variable
+  select(transect, year, bincount, distance_bins) #we don't need the other columns for the response variable
   
 #remove duplicate rows 
 mwipt <- mwipt[!duplicated(mwipt),]
-
-##double check
-#did observer pairs get dropped?
-sort(unique(mwiptlong$obsv_pair)) #11 pairs
-sort(unique(mwipt$obsv_pair)) #none dropped
 
 #make sure we didn't drop counts on accident
 sum(mwiptlong$count)
@@ -61,7 +56,6 @@ sum(mwipt$bincount)
 
 #make it so there's a count in each distance bin for each transectxyear
 yy <- mwipt %>%  
-  select(-obsv_pair) %>%
   pivot_wider( names_from = distance_bins, #which criteria is getting turned to wide
                values_from = c("bincount")) %>% #what columns do we include
   mutate(across(where(is.numeric), ~replace_na(.,0))) #replace NAs with 0s
@@ -76,8 +70,8 @@ yy <- yy %>% dplyr::select( str_sort( colnames(yy[,3:13]), numeric = TRUE ) )
 #final dataframe format
 yyy <- yy %>%  
   pivot_wider( names_from = year, #which criteria is getting turned to wide
-               values_from = c("50", "100", "150", "200", "250", "300", "350", "400", "450", "500", "550"), #what columns do we include
-               #50 = 0-49, 100 = 50-99, etc. so 550 is for any distances with 500
+               values_from = c("0", "50", "100", "150", "200", "250", "300", "350", "400", "450", "500"), #what columns do we include
+               #0 = 0-49, 50 = 50-99, etc. 
                names_glue = "{year}_{.value}") %>%  #new columns need to have year in name 
   mutate(across(where(is.numeric), ~replace_na(.,0))) %>%  #replace NAs with 0s
   ungroup() #because we grouped earlier to sum counts, we have to ungroup in order to remove a column used as grouping criteria
@@ -104,6 +98,11 @@ trunccov <- trunccov[(trunccov$transectyear %in% ff$transectyear),]
 
 ######## Observer level cov (observer-pair) #############
 
+##double check
+#did observer pairs get dropped?
+sort(unique(covdf$obsv_pair)) #11 pairs
+sort(unique(trunccov$obsv_pair)) #none dropped
+
 #create observer level dataframes
 obsvp <- trunccov %>%  
   select( transect, year, obsv_pair ) %>% 
@@ -116,7 +115,7 @@ obsvp<-obsvp[order(obsvp$transect), ]
 head( obsvp ); dim( obsvp ) #this is meant to be a random intercept in the final model, so this might not even be the right format
 
 ############## site level cov in site (transect) by year dataframes #######
-#still are NAs because I guess some sites were not surveyed in certain years, but there are 0s for those cells in the yyy dataframe, so we'll see if that causes issues
+#still are NAs, so we'll see if that causes issues
 jtime <- trunccov %>%
   select(transect, year, jtime) %>%
   spread(key = year, value = jtime)
@@ -134,6 +133,20 @@ T <- length( unique( mwiptlong$year ) )
 T #10
 I <- length(unique(covdf$transect))
 I #16
+
+#Distance Bins
+#create a new column with distance class each row falls into so I can pivot by that column and the counts
+interval.width <- 50 #bin width, would be 50 for us. keeping at 50 even for ropt males
+strip.width <- max(mwiptlong$distance) #distance of one side of transect. Can set it to max of distance column (should be 500)
+
+strip.width #500
+
+xbin<-(mwiptlong$distance%/%interval.width)*interval.width
+xbin #now we have a list of the distance class of each row 
+
+#distance bins 
+db = c(sort(unique(xbin)), max(xbin) + interval.width) #needs to have number of breaks + 1 for unmarked frame
+db
 
 #If the time gap between primary periods is not constant, an M by T matrix of integers should be supplied using the primaryPeriod argument
 #didn't survey in 2020
@@ -164,7 +177,7 @@ umf <- unmarkedFrameDSO(y = as.matrix(yyy),
                                               jday = jday),
                         numPrimary = T,
                         primaryPeriod = primPer,
-                        dist.breaks = c(50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600), #needs to have number of breaks + 1
+                        dist.breaks = db, 
                         tlength = rep(16093, I), #10 mi transects, so 16093.44 m. 16 transects
                         survey = "line",
                         unitsIn = "m")

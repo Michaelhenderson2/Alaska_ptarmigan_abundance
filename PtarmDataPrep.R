@@ -326,7 +326,7 @@ sumw1
 ############Just Males#########################
 maleropt <- ropt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
-  dplyr::select(., year, transect, date, distance, obsv_pair, count) #remove any unnecessary columns
+  dplyr::select(., year, transect, date, distance, count) #remove any unnecessary columns
 #view
 head(maleropt); dim(maleropt) #177
 
@@ -342,7 +342,7 @@ head(maleropt); dim(maleropt) #161, so we've lost 16
 
 malewipt <- wipt1 %>%
   dplyr::filter(., sex == "males" ) %>% #only males
-  dplyr::select(., year, transect, date, distance, obsv_pair, count) #remove any unnecessary columns
+  dplyr::select(., year, transect, date, distance, count) #remove any unnecessary columns
 #view
 head(malewipt); dim(malewipt) #2465
 
@@ -357,27 +357,25 @@ strip.width <- max(malewipt$distance) #distance of one side of transect. Can set
 strip.width #500
 
 nbins <- strip.width%/%interval.width #number of bins
-nbins #10
+nbins #10 (technically 11)
 
-xbin<-(malewipt$distance%/%interval.width+1)*interval.width
+xbin<-(malewipt$distance%/%interval.width)*interval.width #integer division. doesn't keep any decimals or fractions. so 49 = 49/50 = 0*50 = 0
 xbin #now we have a list of the distance class of each row 
 
 #distance bins 
-sort(unique(xbin))
+sort(unique(xbin)) #0-500, so 0 = 0-49, etc.
 
 #add as a column
 malewipt <- malewipt %>%
   mutate(distance_bins = xbin)
 
 #repeat for ropt
-xbin2<-(maleropt$distance%/%interval.width+1)*interval.width 
+xbin2<-(maleropt$distance%/%interval.width)*interval.width 
 xbin2 #now we have a list of the distance class of each row 
 
 #add as a column
 maleropt <- maleropt %>%
   mutate(distance_bins = xbin2)
-
-##NOTE: largest distances (300 and 500) are in the 350 and 500 distance bins
 
 ##########Legend: Define Objects##############
 ### All the cleaning I did made for a lot of objects that can't be understood intrisically. Here is a legend:
