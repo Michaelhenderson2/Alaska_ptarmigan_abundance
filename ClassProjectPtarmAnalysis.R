@@ -189,7 +189,7 @@ summary( umf )
 
 #### Scale covs ######
 #generic function to standardise covariates (for 2 sd, see Gelman):
-standardise <- function( xmat, stdevs = 2, marg = c( 1, 2, 3 ) ) { 
+standardise <- function( xmat, stdevs = 1, marg = c( 1, 2, 3 ) ) { 
   mean.xmat = mean( as.vector( xmat ), na.rm = TRUE )
   sd.xmat = sd( as.vector( xmat ), na.rm = TRUE ) 
   std.xmat = apply( xmat, marg, function( x ){
@@ -200,9 +200,9 @@ standardise <- function( xmat, stdevs = 2, marg = c( 1, 2, 3 ) ) {
 #now scale ecological predictors:
 #sc <- apply( siteCovs(umf), MARGIN = 2, FUN = scale )
 sctime <- standardise( as.matrix(siteCovs(umf)[,"jtime"]), 
-                       stdevs = 2, marg = 2 )
+                       stdevs = 1, marg = 2 )
 scday <- standardise( as.matrix(siteCovs(umf)[,"jday"]), 
-                      stdevs = 2, marg = 2 )
+                      stdevs = 1, marg = 2 )
 # We replace the predictors in our unmarked dataframe with the scaled values:
 siteCovs( umf )[,c("jtime","jday") ] <- cbind(sctime, scday)
 
@@ -211,7 +211,7 @@ summary( umf )
 ##### WIPT Model ##########
 
 #male wipt, half normal
-fm.whn <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + transect #detection, observer pair as a random intercept
+fm.whn <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + (1 | transect) #detection, observer pair as a random intercept
                    ~1 + as.factor(year), #abundance
                    data = umf,
                    keyfun = "halfnorm",
@@ -219,7 +219,7 @@ fm.whn <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + transect #detection, ob
 fm.whn #drops 76 sites
 
 #male wipt, hazard
-fm.wha <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + transect #detection
+fm.wha <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + (1 | transect) #detection
                    ~1 + as.factor(year), #abundance
                    data = umf,
                    keyfun = "hazard",
@@ -371,9 +371,9 @@ umfr <- unmarkedFrameDS(y = as.matrix(rr),
 #now scale ecological predictors:
 #sc <- apply( siteCovs(umf), MARGIN = 2, FUN = scale )
 rsctime <- standardise( as.matrix(siteCovs(umfr)[,"jtime"]), 
-                       stdevs = 2, marg = 2 )
+                       stdevs = 1, marg = 2 )
 rscday <- standardise( as.matrix(siteCovs(umfr)[,"jday"]), 
-                      stdevs = 2, marg = 2 )
+                      stdevs = 1, marg = 2 )
 # We replace the predictors in our unmarked dataframe with the scaled values:
 siteCovs( umfr )[,c("jtime","jday") ] <- cbind(rsctime, rscday)
 
@@ -384,7 +384,7 @@ summary( umfr )
 ##### ROPT Model ##########
 
 #male ropt, half normal
-fm.rhn <- distsamp(~1 + jtime + jday + transect + (1 | obsv_pair) #detection
+fm.rhn <- distsamp(~1 + jtime + jday + (1 | transect) + (1 | obsv_pair) #detection
                    ~1 + as.factor(year), #abundance
                    data = umfr,
                    keyfun = "halfnorm",
@@ -392,18 +392,34 @@ fm.rhn <- distsamp(~1 + jtime + jday + transect + (1 | obsv_pair) #detection
 fm.rhn 
 
 #male ropt, hazard
-fm.rha <- distsamp(~1 + jtime + jday + transect + (1 | obsv_pair) #detection
+fm.rha <- distsamp(~1 + jtime + jday + (1 | transect) + (1 | obsv_pair) #detection
                    ~1 + as.factor(year), #abundance
                    data = umfr,
                    keyfun = "hazard",
                    output = "abund")
-fm.rha #took longer to converge (like a minute or two)
+fm.rha #took longer to converge (like a minute or two). 
 
 ##### ALL MODELS #####
 fm.whn #wipt male half normal
+#mean abundance (exponentiated to take out of log scale)
+exp(coef(fm.whn[1]))
+#confidence intervals of detection coefficients
+confint( fm.whn, type = "det" )
+
 fm.wha #wipt male hazard
+exp(coef(fm.wha[1]))
+confint( fm.wha, type = "det" )
+
 fm.rhn #ropt male half normal
+exp(coef(fm.rhn[1]))
+confint( fm.rhn, type = "det" )
+
 fm.rha #ropt male hazard
+exp(coef(fm.rha[1]))
+confint( fm.rha, type = "det" )
+
+#Time of day had an effect on wipt detection but not ropt detection (later in the day = less detections)
+#hazard has way higher estimates
 
 ##########    save relevant data and workspaces     ###########
 
