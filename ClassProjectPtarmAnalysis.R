@@ -111,7 +111,9 @@ covdf <- covdfraw %>%
 #I need to remove any year/transect pairs that were tossed when we cleaned
 ff <- data.frame(transectyear = unique(paste(mwipt$year, mwipt$transect)))
 
-trunccov <- covdf[(covdf$transectyear %in% ff$transectyear),]
+trunccov <- covdf %>%
+  dplyr::filter(transectyear %in% ff$transectyear)
+
 dim(trunccov) #should be 130
 
 ######## Site level covs #############
@@ -122,6 +124,7 @@ obsvp <- trunccov  %>%  #considered site level for the purposes of class project
 
 obsvp<-obsvp[order(obsvp$transectyear), ]
 head( obsvp ); dim( obsvp ) #130 rows (sites)
+sum(is.na(obsvp)) #check for NAs
 
 #time of day
 jtime <- trunccov %>%
@@ -129,6 +132,7 @@ jtime <- trunccov %>%
 
 jtime<-jtime[order(jtime$transectyear), ]
 head( jtime ); dim( jtime )
+sum(is.na(jtime)) #check for NAs
 
 #day of year
 jday <- trunccov %>%
@@ -136,22 +140,23 @@ jday <- trunccov %>%
 
 jday<-jday[order(jday$transectyear), ]
 head( jday ); dim( jday )
+sum(is.na(jday))
 
 #year
 year <- trunccov %>%
   select(transectyear, year)
 
-dim(year) #matches data
 year<-year[order(year$transectyear), ]
 head( year ); dim( year )
+sum(is.na(year))
 
 #transect
 transect <- trunccov %>%
   select(transectyear, transect)
 
-dim(transect) #matches data
 transect<-transect[order(transect$transectyear), ]
 head( transect ); dim( transect )
+sum(is.na(transect))
 
 ###### can't put site names in unmarked dataset ######
 ##Checked to make sure sites were ordered the same way for all of them (alphabetically, so Cs, then Ks, then Ts)
@@ -182,7 +187,7 @@ umf <- unmarkedFrameDS(y = as.matrix(yy),
                         tlength = rep(16093, I), #10 mi transects, so 16093.44 m. 16 transects
                         survey = "line",
                         unitsIn = "m")
-#observer level covariates not allowed.
+#observer level covariates not allowed. automatically turned transect and obsvp into factors.
 
 # View summary of unmarked dataframe:
 summary( umf ) 
@@ -212,11 +217,11 @@ summary( umf )
 
 #male wipt, half normal
 fm.whn <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + (1 | transect) #detection, observer pair as a random intercept
-                   ~1 + as.factor(year), #abundance
+                   ~1 + as.factor(year), #abundance. year as factor so we can get annual estimates
                    data = umf,
                    keyfun = "halfnorm",
                    output = "abund")
-fm.whn #drops 76 sites
+fm.whn 
 
 #male wipt, hazard
 fm.wha <- distsamp(~1 + jtime + jday + (1 | obsv_pair) + (1 | transect) #detection
@@ -365,6 +370,7 @@ umfr <- unmarkedFrameDS(y = as.matrix(rr),
                        tlength = rep(16093, Ir), #10 mi transects, so 16093.44 m. 
                        survey = "line",
                        unitsIn = "m")
+# obs level covs not allowed. automatically turned transect and obsvp into factors.
 
 #### Scale covs ######
 
@@ -385,7 +391,7 @@ summary( umfr )
 
 #male ropt, half normal
 fm.rhn <- distsamp(~1 + jtime + jday + (1 | transect) + (1 | obsv_pair) #detection
-                   ~1 + as.factor(year), #abundance
+                   ~1 + as.factor(year), #abundance. year as factor so we can model yearly estimates
                    data = umfr,
                    keyfun = "halfnorm",
                    output = "abund")
@@ -419,7 +425,106 @@ exp(coef(fm.rha[1]))
 confint( fm.rha, type = "det" )
 
 #Time of day had an effect on wipt detection but not ropt detection (later in the day = less detections)
-#hazard has way higher estimates
+#hazard has way higher estimates but has lower AIC
+
+#### Goodness of fit #####
+# We rely on unmarked options for boostrap goodness-of-fit option in #
+# combination with custom built function fitstats, from Kery and Royle's
+# Hierarchical modelling book, Chpt 7 pg 333. Also see example in ?parboot.
+# The function computes error sum-of-squares, standard Chi-square and the #
+# Freeman-Tukey statistic:
+# Function returning three fit-statistics.
+# fitstats <- function(fm) {
+#   observed <- getY(fm@data)
+#   expected <- fitted(fm)
+#   resids <- residuals(fm)
+#   sse <- sum(resids^2)
+#   chisq <- sum((observed - expected)^2 / expected)
+#   freeTuke <- sum((sqrt(observed) - sqrt(expected))^2)
+#   out <- c(SSE=sse, Chisq=chisq, freemanTukey=freeTuke)
+#   return(out)
+# We are looking for: p > 0.05
+(gof.whn <- parboot(fm.whn, fitstats2, nsim = 100)) #failed all tests
+(gof.wha <- parboot(fm.wha, fitstats2, nsim = 100)) #will take like 11 hours
+(gof.rhn <- parboot(fm.rhn, fitstats2, nsim = 100)) #failed all tests
+(gof.rha <- parboot(fm.rha, fitstats2, nsim = 100)) #took over an hour and gave warning: model fitting.failed in 5 sims. Passed almost all tests and is not overdispersed.
+
+#chat of chi squared based on royle and kery. ratio of observed and mean expected value of chi2
+(c.hat <- gof.whn@t0[2] / mean(gof.whn@t.star[,2])) #255.6841, super overdispersed
+(c.hat <- gof.wha@t0[2] / mean(gof.wha@t.star[,2]))
+(c.hat <- gof.rhn@t0[2] / mean(gof.rhn@t.star[,2])) #1.444632 
+(c.hat <- gof.rha@t0[2] / mean(gof.rha@t.star[,2])) #1.210343 
+
+
+#### Plotting ####
+#Marginalized effect/partial prediction plots for mean annual abundances
+yearabun <- data.frame( year = factor( yrrange ), levels = yrrange )
+#view
+yearabun
+
+#Now predict partial relationship between year and abundance
+pred.yearabun <- predict( fm.rhn, type = "state", newdata = yearabun, 
+                          appendData = TRUE ) #just going to manually change out the model here.
+#view
+pred.yearabun
+
+# Plot:
+plot.yearabun <- pred.yearabun %>%
+  # define x and y values
+  ggplot(., aes( x = year, y = Predicted, color = year ) ) + 
+  #choose preset look
+  theme_bw( base_size = 15 ) +
+  #remove legend
+  theme( legend.position = "none" ) +
+  # add labels
+  labs( x = "Year", y = "Predicted Abundance", title = "Male ROPT Half Normal" ) +
+  #add mean abundance for each year
+  geom_point( size = 4 ) +
+  # add confidence intervals
+  geom_errorbar( aes(ymin = lower, ymax = upper ), 
+                 size = 1.5, width = 0.3 ) 
+#view
+plot.yearabun
+
+## Plot significant det covariates (jtime for just wipt):
+n <- 100 #100 evenly spaced values
+# we use the observed values unscaled to define our range and create 100 values:
+timeday <- seq( min( trunccov[,"jtime"]),max( trunccov[,"jtime"]),
+                  length.out = n )
+dayyear <- seq( min( trunccov[,"jday"]),max( trunccov[,"jday"]),
+                length.out = n )
+
+#standardize/scale them
+timeday.std <- standardise( as.matrix(timeday), stdevs = 1, marg = 2 )
+dayyear.std <- standardise( as.matrix(dayyear), stdevs = 1, marg = 2 )
+#combine standardized predictor into a new dataframe to predict partial relationship
+# We replace value of other predictor with its mean
+colData <- data.frame( Min_Past_5am = timeday.std, day_of_year = 0 )
+
+#predict partial relationship 
+pred.col.jtime <- predict( fm.whn, type = "det", newdata = colData, 
+                          appendData = TRUE ) #gives me an error here (invalid type(list) for variable 'jtime') and I can't figure it out
+#view
+head( pred.col.jtime); dim( pred.col.jtime )
+
+# create plots for ecological submodels
+#Starting with sagebrush and colonization:
+# select the predicted values we want to plot and combine with unscaled predictor
+jtimep <- cbind( pred.col.jtime[,c("Predicted", "lower", "upper") ], Min_Past_5am ) %>%
+  # define x and y values
+  ggplot(., aes( x = Min_Past_5am, y = Predicted ) ) + 
+  #choose preset look
+  theme_bw( base_size = 15 ) +
+  # add labels
+  labs( x = "Minutes Past 5 AM", y = "Detection" ) +
+  # add band of confidence intervals
+  geom_smooth( aes(ymin = lower, ymax = upper ), 
+               stat = "identity",
+               size = 1.5, alpha = 0.5, color = "grey" ) +
+  # add mean line on top
+  geom_line( size = 2 ) 
+#view
+jtimep
 
 ##########    save relevant data and workspaces     ###########
 
